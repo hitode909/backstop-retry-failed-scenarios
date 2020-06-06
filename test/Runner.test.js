@@ -28,4 +28,26 @@ describe('Runner', () => {
         ci_report: "backstop_data/ci_report",
     });
   });
+
+  describe('run', () => {
+    test('it runs once when success on first time', () => {
+      const runner = new Runner({
+        retry: 3,
+        config: 'backstop.js',
+        command: 'true',
+      });
+      expect(runner.run()).toEqual(true);
+      expect(runner.retriedCount).toEqual(1);
+    });
+
+    test('it retries specified times', () => {
+      const runner = new Runner({
+        retry: 3,
+        config: 'backstop.js',
+        command: 'false',
+      });
+      expect(runner.run()).toEqual(false);
+      expect(runner.retriedCount).toEqual(3);
+    });
+  });
 });
