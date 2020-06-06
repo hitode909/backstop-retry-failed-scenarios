@@ -42,7 +42,13 @@ test('returns filter string from failed tests', () => {
           label: 'c',
         },
         status: 'fail',
-      }
+      },
+      {
+        pair: {
+          label: 'a',
+        },
+        status: 'fail',
+      },
     ]
   })).toStrictEqual('^(a|c)$');
 });
