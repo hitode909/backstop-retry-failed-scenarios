@@ -37,7 +37,7 @@
     "bitmaps_test": "custom_backstop_data/bitmaps_test",
     "html_report": "custom_backstop_data/html_report",
     "ci_report": "custom_backstop_data/ci_report",
-    "json_report": "custom_backstop_data/ci_report"
+    "json_report": "custom_backstop_data/json_report"
   },
   "report": ["browser", "json", "CI"],
   "engine": "puppeteer",
