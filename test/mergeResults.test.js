@@ -4,7 +4,7 @@ test('it returns object', () => {
   expect(mergeResults({}, {})).toStrictEqual({});
 });
 
-test('it replaces old failed test with new passful test', () => {
+test('it replaces old failed test with new passed test', () => {
   expect(mergeResults({
     testSuite: 'BackstopJS',
     id: 'backstop_default',
@@ -12,6 +12,14 @@ test('it replaces old failed test with new passful test', () => {
       {
         pair: {
           label: 'a',
+          viewportLabel: 'phone',
+        },
+        status: 'fail',
+      },
+      {
+        pair: {
+          label: 'a',
+          viewportLabel: 'tablet',
         },
         status: 'fail',
       }
@@ -23,6 +31,7 @@ test('it replaces old failed test with new passful test', () => {
       {
         pair: {
           label: 'a',
+          viewportLabel: 'phone',
         },
         status: 'pass',
       }
@@ -34,8 +43,16 @@ test('it replaces old failed test with new passful test', () => {
       {
         pair: {
           label: 'a',
+          viewportLabel: 'phone',
         },
         status: 'pass',
+      },
+      {
+        pair: {
+          label: 'a',
+          viewportLabel: 'tablet',
+        },
+        status: 'fail',
       }
     ]
   });
