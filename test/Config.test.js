@@ -27,6 +27,11 @@ describe('Config', () => {
     expect(config.ciReportPath).toEqual(path.join(dir, 'custom_backstop_data', 'ci_report', 'xunit.xml'));
   });
 
-  // test('jsonReport and ciReport are optional', () => {
-  // });
+  test('jsonReport and ciReport are optional', () => {
+    const dir = path.join(process.cwd(), 'test', 'fixtures', 'backstop', 'failed_html_only');
+    const config = new Config(dir, 'backstop.json');
+    expect(config.htmlReport).toBeDefined();
+    expect(config.jsonReport).toEqual(null);
+    // expect(config.ciReport).toEqual(null);
+  });
 });
