@@ -11,6 +11,8 @@
     "jest": "^26.0.1"
   },
   "dependencies": {
+    "command-line-args": "^5.1.1",
+    "command-line-usage": "^6.1.0",
     "escape-string-regexp": "^4.0.0"
   },
   "bin": {
