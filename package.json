@@ -2,7 +2,6 @@
   "name": "backstop-retry-failed-scenrios",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "jest"
   },
@@ -13,5 +12,8 @@
   },
   "dependencies": {
     "escape-string-regexp": "^4.0.0"
+  },
+  "bin": {
+    "backstop-retry-failed-scenrios": "cli.js"
   }
 }
