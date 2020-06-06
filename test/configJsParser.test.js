@@ -1,4 +1,7 @@
-const { extractConfigJs } = require('../lib/configJsParser');
+const os = require('os');
+const fs = require('fs');
+const path = require('path');
+const { extractConfigJs, writeConfigJs } = require('../lib/configJsParser');
 
 describe('extractConfigJs', () => {
   test('it throws error when the target file is missing or broken', () => {
@@ -18,5 +21,13 @@ describe('extractConfigJs', () => {
         }
       ]
     });
+  });
+});
+
+describe('writeConfigJs', () => {
+  test('it writes config.js to specified path', () => {
+    const tmpPath = path.join(os.tmpdir(), Math.random().toString());
+    writeConfigJs(tmpPath, { tests: [] });
+    expect(fs.readFileSync(tmpPath).toString()).toEqual(`report({\n  "tests": []\n});`);
   });
 });
