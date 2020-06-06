@@ -1,7 +1,7 @@
 const os = require('os');
 const fs = require('fs');
 const path = require('path');
-const { extractConfigJs, writeConfigJs } = require('../lib/configJsParser');
+const { extractConfigJs, writeConfigJs } = require('../lib/htmlReportJsParser');
 
 describe('extractConfigJs', () => {
   test('it throws error when the target file is missing or broken', () => {
