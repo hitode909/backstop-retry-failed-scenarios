@@ -1,0 +1,12 @@
+report({
+    "testSuite": "BackstopJS",
+    "id": "backstop_default",
+    "tests": [
+      {
+        "pair": {
+          "label": "a"
+        },
+        "status": "success"
+      }
+    ]
+});
