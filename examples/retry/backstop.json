@@ -1,0 +1,43 @@
+{
+  "id": "random_face",
+  "viewports": [
+    {
+      "label": "phone",
+      "width": 320,
+      "height": 480
+    }
+  ],
+  "scenarios": [
+    {
+      "label": "random_face1",
+      "url": "https://blog.sushi.money/random_face",
+      "selectors": ["article"]
+    },
+    {
+      "label": "random_face2",
+      "url": "https://blog.sushi.money/random_face",
+      "selectors": ["article"]
+    },
+    {
+      "label": "random_face3",
+      "url": "https://blog.sushi.money/random_face",
+      "selectors": ["article"]
+    }
+  ],
+  "paths": {
+    "bitmaps_reference": "backstop_data/bitmaps_reference",
+    "bitmaps_test": "backstop_data/bitmaps_test",
+    "engine_scripts": "backstop_data/engine_scripts",
+    "html_report": "backstop_data/html_report",
+    "ci_report": "backstop_data/ci_report"
+  },
+  "report": ["browser"],
+  "engine": "puppeteer",
+  "engineOptions": {
+    "args": ["--no-sandbox"]
+  },
+  "asyncCaptureLimit": 5,
+  "asyncCompareLimit": 50,
+  "debug": false,
+  "debugWindow": false
+}
