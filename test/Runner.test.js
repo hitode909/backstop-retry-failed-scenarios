@@ -30,23 +30,23 @@ describe('Runner', () => {
   });
 
   describe('run', () => {
-    test('it runs once when success on first time', () => {
+    test('it runs once when success on first time', async () => {
       const runner = new Runner({
         retry: 3,
         config: 'backstop.js',
-        command: 'true',
+        command: 'cal -y',
       });
-      expect(runner.run()).toEqual(true);
+      expect(await runner.run()).toEqual(true);
       expect(runner.retriedCount).toEqual(1);
     });
 
-    test('it retries specified times', () => {
+    test('it retries specified times', async () => {
       const runner = new Runner({
         retry: 3,
         config: 'backstop.js',
-        command: 'false',
+        command: 'not_existing_command',
       });
-      expect(runner.run()).toEqual(false);
+      expect(await runner.run()).toEqual(false);
       expect(runner.retriedCount).toEqual(3);
     });
   });
