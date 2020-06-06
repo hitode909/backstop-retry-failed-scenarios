@@ -1,5 +1,10 @@
 const { Runner } = require('../lib/Runner');
 
+const rootDir = process.cwd();
+beforeEach(() => {
+  process.chdir(rootDir);
+});
+
 describe('Runner', () => {
   test('it receives options', () => {
     const runner = new Runner({
@@ -48,6 +53,16 @@ describe('Runner', () => {
       });
       expect(await runner.run()).toEqual(false);
       expect(runner.retriedCount).toEqual(3);
+    });
+  });
+
+  describe('createFilter', () => {
+    test('it creates filter from report', () => {
+      process.chdir('test/fixtures/backstop/failed');
+      const runner = new Runner({
+        config: 'backstop.json',
+      });
+      expect(runner.filter).toEqual('^(BackstopJS Homepage)$');
     });
   });
 });
