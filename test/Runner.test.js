@@ -7,31 +7,25 @@ afterEach(() => {
 
 describe('Runner', () => {
   test('it receives options', () => {
+    process.chdir('test/fixtures/backstop/failed');
     const runner = new Runner({
       retry: 3,
-      config: 'backstop.js',
+      config: 'backstop.json',
       command: 'backstop test',
     });
     expect(runner).toBeDefined();
     expect(runner.retryCount).toEqual(3);
-    expect(runner.configPath).toEqual('backstop.js');
+    expect(runner.configPath).toEqual('backstop.json');
     expect(runner.command).toEqual('backstop test');
   });
 
   test('it parses config', () => {
+    process.chdir('test/fixtures/backstop/failed');
     const runner = new Runner({
-      config: 'test/fixtures/backstop.config.json',
+      config: 'backstop.json',
     });
-    expect(runner.configFullPath).toBeDefined();
-    expect(runner.configObject).toBeDefined();
-    expect(runner.configObject.paths).toStrictEqual({
-        bitmaps_reference: "backstop_data/bitmaps_reference",
-        bitmaps_test: "backstop_data/bitmaps_test",
-        engine_scripts: "backstop_data/engine_scripts",
-        html_report: "backstop_data/html_report",
-        json_report: "backstop_data/json_report",
-        ci_report: "backstop_data/ci_report",
-    });
+    expect(runner.config).toBeDefined();
+    expect(runner.config.htmlReport).toBeDefined();
   });
 
   describe('run', () => {

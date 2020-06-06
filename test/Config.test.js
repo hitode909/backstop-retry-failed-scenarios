@@ -13,6 +13,7 @@ describe('Config', () => {
     expect(config).toBeDefined();
     expect(config.rawConfig).toBeDefined();
     expect(config.htmlReportPath).toEqual(path.join(dir, 'backstop_data', 'html_report', 'config.js'));
+    expect(config.htmlReport).toBeDefined();
   });
 
   test('it reads html_report', () => {
