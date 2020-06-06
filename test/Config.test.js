@@ -15,6 +15,7 @@ describe('Config', () => {
     expect(config.htmlReportPath).toEqual(path.join(dir, 'backstop_data', 'html_report', 'config.js'));
     expect(config.htmlReport).toBeDefined();
     expect(config.jsonReportPath).toEqual(path.join(dir, 'backstop_data', 'json_report', 'jsonReport.json'));
+    expect(config.jsonReport).toBeDefined();
     expect(config.ciReportPath).toEqual(path.join(dir, 'backstop_data', 'ci_report', 'xunit.xml'));
   });
 
@@ -25,4 +26,7 @@ describe('Config', () => {
     expect(config.jsonReportPath).toEqual(path.join(dir, 'custom_backstop_data', 'json_report', 'jsonReport.json'));
     expect(config.ciReportPath).toEqual(path.join(dir, 'custom_backstop_data', 'ci_report', 'xunit.xml'));
   });
+
+  // test('jsonReport and ciReport are optional', () => {
+  // });
 });
