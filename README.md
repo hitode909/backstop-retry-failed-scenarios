@@ -5,7 +5,7 @@ It parses report.json, extract failed tests, and rerun with `--filter` option, a
 This is useful when your tests are unstable.
 
 ```
-$ bakstop reference
+$ backstop reference
 $ backstop-retry-failed-scenarios --command 'backstop test' --retry 5 --config backstop.js
 ```
 
