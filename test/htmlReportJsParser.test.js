@@ -17,7 +17,7 @@ describe('extractConfigJs', () => {
           pair: {
             label: 'a',
           },
-          status: 'success',
+          status: 'pass',
         }
       ]
     });

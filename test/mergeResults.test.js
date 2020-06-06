@@ -4,7 +4,7 @@ test('it returns object', () => {
   expect(mergeResults({}, {})).toStrictEqual({});
 });
 
-test('it replaces old failed test with new successful test', () => {
+test('it replaces old failed test with new passful test', () => {
   expect(mergeResults({
     testSuite: 'BackstopJS',
     id: 'backstop_default',
@@ -24,7 +24,7 @@ test('it replaces old failed test with new successful test', () => {
         pair: {
           label: 'a',
         },
-        status: 'success',
+        status: 'pass',
       }
     ]
   })).toStrictEqual({
@@ -35,7 +35,7 @@ test('it replaces old failed test with new successful test', () => {
         pair: {
           label: 'a',
         },
-        status: 'success',
+        status: 'pass',
       }
     ]
   });

@@ -13,7 +13,7 @@ test('returns empty string when all tests succeed', () => {
         pair: {
           label: 'a',
         },
-        status: 'success',
+        status: 'pass',
       },
     ]
   })).toStrictEqual(null);
@@ -35,7 +35,7 @@ test('returns filter string from failed tests', () => {
         pair: {
           label: 'b',
         },
-        status: 'success',
+        status: 'pass',
       },
       {
         pair: {

@@ -29,7 +29,7 @@ describe('Runner', () => {
   });
 
   describe('run', () => {
-    test('it runs once when success on first time', async () => {
+    test('it runs once when pass on first time', async () => {
       process.chdir('test/fixtures/backstop/failed');
       const runner = new Runner({
         retry: 3,
