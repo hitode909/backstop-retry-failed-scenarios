@@ -17,6 +17,7 @@ describe('Config', () => {
     expect(config.jsonReportPath).toEqual(path.join(dir, 'backstop_data', 'json_report', 'jsonReport.json'));
     expect(config.jsonReport).toBeDefined();
     expect(config.ciReportPath).toEqual(path.join(dir, 'backstop_data', 'ci_report', 'xunit.xml'));
+    expect(config.ciReport).toBeDefined();
   });
 
   test('it reads paths', () => {
@@ -32,6 +33,6 @@ describe('Config', () => {
     const config = new Config(dir, 'backstop.json');
     expect(config.htmlReport).toBeDefined();
     expect(config.jsonReport).toEqual(null);
-    // expect(config.ciReport).toEqual(null);
+    expect(config.ciReport).toEqual(null);
   });
 });
