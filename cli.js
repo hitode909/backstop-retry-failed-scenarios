@@ -2,6 +2,7 @@
 
 const commandLineArgs = require('command-line-args');
 const commandLineUsage = require('command-line-usage');
+const { Runner } = require('./lib/Runner');
 
 const optionDefinitions = [
   {
@@ -49,4 +50,9 @@ if (options.help) {
 
 console.log(options);
 
-process.stdout.write("Hello, world!\n");
+const main = async () => {
+  const runner = new Runner(options);
+  await runner.run();
+  process.exit(runner.exitCode);
+};
+main();
