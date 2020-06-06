@@ -46,3 +46,26 @@ test('returns filter string from failed tests', () => {
     ]
   })).toStrictEqual('^(a|c)$');
 });
+
+test('it escapes string for RegExp', () => {
+  const filter = createFilter({
+    testSuite: 'BackstopJS',
+    id: 'backstop_default',
+    tests: [
+      {
+        pair: {
+          label: '^',
+        },
+        status: 'fail',
+      },
+      {
+        pair: {
+          label: '(',
+        },
+        status: 'fail',
+      }
+    ]
+  });
+  expect(filter).toStrictEqual('^(\\^|\\()$');
+  expect(new RegExp(filter)).toStrictEqual(/^(\^|\()$/);
+});
