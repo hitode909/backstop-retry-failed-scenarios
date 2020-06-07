@@ -1,17 +1,14 @@
 const { Runner } = require('../lib/Runner');
-
-const rootDir = process.cwd();
-afterEach(() => {
-  process.chdir(rootDir);
-});
+const {copy, resolve} = require('test-fixture')();
 
 describe('Runner', () => {
-  test('it receives options', () => {
-    process.chdir('test/fixtures/backstop/failed');
+  test('it receives options', async () => {
+    await copy();
     const runner = new Runner({
       retry: 3,
       config: 'backstop.json',
       command: 'backstop test',
+      rootDir: resolve('backstop/failed'),
     });
     expect(runner).toBeDefined();
     expect(runner.retryCount).toEqual(3);
@@ -19,10 +16,11 @@ describe('Runner', () => {
     expect(runner.command).toEqual('backstop test');
   });
 
-  test('it parses config', () => {
-    process.chdir('test/fixtures/backstop/failed');
+  test('it parses config', async () => {
+    await copy();
     const runner = new Runner({
       config: 'backstop.json',
+      rootDir: resolve('backstop/failed'),
     });
     expect(runner.config).toBeDefined();
     expect(runner.config.htmlReport).toBeDefined();
@@ -30,22 +28,24 @@ describe('Runner', () => {
 
   describe('run', () => {
     test('it runs once when pass on first time', async () => {
-      process.chdir('test/fixtures/backstop/failed');
+      await copy();
       const runner = new Runner({
         retry: 3,
         config: 'backstop.json',
         command: 'cal -y',
+        rootDir: resolve('backstop/failed'),
       });
       expect(await runner.run()).toEqual(true);
       expect(runner.retriedCount).toEqual(1);
     });
 
     test('it retries specified times', async () => {
-      process.chdir('test/fixtures/backstop/failed');
+      await copy();
       const runner = new Runner({
         retry: 3,
         config: 'backstop.json',
         command: 'not_existing_command',
+        rootDir: resolve('backstop/failed'),
       });
       expect(await runner.run()).toEqual(false);
       expect(runner.retriedCount).toEqual(3);
@@ -53,10 +53,11 @@ describe('Runner', () => {
   });
 
   describe('createFilter', () => {
-    test('it creates filter from report', () => {
-      process.chdir('test/fixtures/backstop/failed');
+    test('it creates filter from report', async () => {
+      await copy();
       const runner = new Runner({
         config: 'backstop.json',
+        rootDir: resolve('backstop/failed'),
       });
       expect(runner.filter).toEqual('^(BackstopJS Homepage)$');
     });
