@@ -23,8 +23,6 @@ jobs:
             ${{ runner.os }}-npm-
       - name: install
         run: npm ci
-      - name: build
-        run: npm run compile
       - run: npm test
         env:
           CI: true
