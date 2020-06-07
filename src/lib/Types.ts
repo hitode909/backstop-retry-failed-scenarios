@@ -1,4 +1,4 @@
-type Case = {
+type JSONCase = {
   pair: {
     label: string;
     viewportLabel: string;
@@ -6,5 +6,20 @@ type Case = {
   status: string;
 };
 export type JSONRawReport = {
-  tests: Case[];
+  tests: JSONCase[];
 };
+
+type CICase = {
+  failure: boolean;
+};
+
+export type CIRawReport = {
+  testsuites: {
+    testsuite: {
+      testcase: CICase[];
+      failures: number;
+      errors: number;
+    };
+  };
+};
+

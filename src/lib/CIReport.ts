@@ -1,19 +1,7 @@
 import fs from 'fs';
 import parser from 'xml2json';
 
-type CICase = {
-  failure: boolean;
-};
-
-type CIRawReport = {
-  testsuites: {
-    testsuite: {
-      testcase: CICase[];
-      failures: number;
-      errors: number;
-    };
-  };
-};
+import {CIRawReport} from './Types';
 
 export const mergeResults = (
   first: CIRawReport,
