@@ -48,8 +48,6 @@ if (options.help) {
   process.exit(0);
 }
 
-console.log(options);
-
 const main = async () => {
   const runner = new Runner({
     rootDir: process.cwd(),
