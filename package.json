@@ -38,6 +38,6 @@
     "xml2json": "^0.12.0"
   },
   "bin": {
-    "backstop-retry-failed-scenarios": "dist/src/cli.js"
+    "backstop-retry-failed-scenarios": "dist/cli.js"
   }
 }
