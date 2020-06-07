@@ -1,7 +1,7 @@
 import {mergeResults} from '../lib/mergeResults';
 
 test('it returns object', () => {
-  expect(mergeResults({tests: []}, {tests: []})).toStrictEqual({});
+  expect(mergeResults({tests: []}, {tests: []})).toStrictEqual({tests: []});
 });
 
 test('it replaces old failed test with new passed test', () => {
@@ -38,8 +38,6 @@ test('it replaces old failed test with new passed test', () => {
       }
     )
   ).toStrictEqual({
-    testSuite: 'BackstopJS',
-    id: 'backstop_default',
     tests: [
       {
         pair: {

@@ -1,8 +1,5 @@
 import {JSONRawReport} from './Types';
 
-const foo = 1;
-console.log(foo);
-
 export const mergeResults = (
   first: JSONRawReport,
   second: JSONRawReport
