@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "test-fixture": "^2.4.1"
   },
   "dependencies": {
     "command-line-args": "^5.1.1",
