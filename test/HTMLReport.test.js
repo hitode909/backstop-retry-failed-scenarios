@@ -1,27 +1,24 @@
-const path = require('path');
-const os = require('os');
 const { HTMLReport } = require('../lib/HTMLReport');
-
-const rootDir = process.cwd();
-afterEach(() => {
-  process.chdir(rootDir);
-});
+const {copy, resolve} = require('test-fixture')()
 
 describe('HTMLReport', () => {
-  test('it represents config.js', () => {
-    const report = new HTMLReport(path.join(process.cwd(), 'test', 'fixtures', 'backstop', 'failed', 'backstop_data', 'html_report', 'config.js'));
+  test('it represents config.js', async () => {
+    await copy();
+    const report = new HTMLReport(resolve('backstop', 'failed', 'backstop_data', 'html_report', 'config.js'));
     expect(report).toBeDefined();
     expect(report.rawReport).toBeDefined();
   });
 
-  test('it creates filter for retry', () => {
-    const report = new HTMLReport(path.join(process.cwd(), 'test', 'fixtures', 'backstop', 'failed', 'backstop_data', 'html_report', 'config.js'));
+  test('it creates filter for retry', async () => {
+    await copy();
+    const report = new HTMLReport(resolve('backstop', 'failed', 'backstop_data', 'html_report', 'config.js'));
     expect(report.filter).toEqual('^(BackstopJS Homepage)$');
   });
 
-  test('it merges test result', () => {
-    const r1 = new HTMLReport(path.join(process.cwd(), 'test', 'fixtures', 'backstop', 'tablet_success_sp_failed', 'backstop_data', 'html_report', 'config.js'));
-    const r2 = new HTMLReport(path.join(process.cwd(), 'test', 'fixtures', 'backstop', 'pass', 'backstop_data', 'html_report', 'config.js'));
+  test('it merges test result', async () => {
+    await copy();
+    const r1 = new HTMLReport(resolve('backstop', 'tablet_success_sp_failed', 'backstop_data', 'html_report', 'config.js'));
+    const r2 = new HTMLReport(resolve('backstop', 'pass', 'backstop_data', 'html_report', 'config.js'));
 
     expect(r1.failedCount).toEqual(1);
     expect(r2.failedCount).toEqual(0);
@@ -31,9 +28,8 @@ describe('HTMLReport', () => {
     expect(r1.failedCount).toEqual(0);
     expect(r2.failedCount).toEqual(0);
 
-    const tmpPath = path.join(os.tmpdir(), Math.random().toString());
-    r1.writeTo(tmpPath);
-    const wroteReport = new HTMLReport(tmpPath);
+    r1.write();
+    const wroteReport = new HTMLReport(r1.reportPath);
     expect(wroteReport.passCount).toEqual(2);
   });
 });
