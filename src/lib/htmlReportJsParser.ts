@@ -1,4 +1,5 @@
-const fs = require('fs');
+import fs from 'fs';
+import {JSONRawReport} from './Types';
 
 /**
  * Extract argument object from JSON file.
@@ -8,14 +9,16 @@ const fs = require('fs');
  * @param {RegExp} suffixRule - trimming rule for suffix
  * @returns {Object} results - argument of report()
  */
-const extractConfigJson = (configJsPath, prefixRule, suffixRule) => {
+export function extractConfigJson(
+  configJsPath: string,
+  prefixRule?: string | RegExp | undefined,
+  suffixRule?: string | RegExp | undefined
+): JSONRawReport {
   if (!prefixRule) prefixRule = '';
   if (!suffixRule) suffixRule = '';
   const content = fs.readFileSync(configJsPath).toString();
   return JSON.parse(content.replace(prefixRule, '').replace(suffixRule, ''));
-};
-
-module.exports.extractConfigJson = extractConfigJson;
+}
 
 /**
  * Extract argument object from config.js file.
@@ -23,7 +26,7 @@ module.exports.extractConfigJson = extractConfigJson;
  * @param {String} configJsPath -  path of config.js
  * @returns {Object} results - argument of report()
  */
-module.exports.extractConfigJs = (configJsPath) => {
+export const extractConfigJs = (configJsPath: string): JSONRawReport => {
   return extractConfigJson(configJsPath, /^report\(/, /\);$/);
 };
 
@@ -36,20 +39,30 @@ module.exports.extractConfigJs = (configJsPath) => {
  * @param {String} suffix - suffix string
  * @returns {Object} results - argument of report()
  */
-const writeConfigJson = (targetPath, reportObject, prefix, suffix) => {
+export const writeConfigJson = (
+  targetPath: string,
+  reportObject: JSONRawReport,
+  prefix: string | undefined,
+  suffix: string | undefined
+) => {
   if (!prefix) prefix = '';
   if (!suffix) suffix = '';
-  const reportContent = `${prefix}${JSON.stringify(reportObject, null, '  ').toString()}${suffix}`;
+  const reportContent = `${prefix}${JSON.stringify(
+    reportObject,
+    null,
+    '  '
+  ).toString()}${suffix}`;
   fs.writeFileSync(targetPath, reportContent);
 };
-
-module.exports.writeConfigJson = writeConfigJson;
 
 /**
  * Write report object to file.
  * @param {String} configJsPath -  path of config.js to write
  * @param {Object} reportObject - report object
  */
-module.exports.writeConfigJs = (targetPath, reportObject) => {
+export const writeConfigJs = (
+  targetPath: string,
+  reportObject: JSONRawReport
+) => {
   writeConfigJson(targetPath, reportObject, 'report(', ');');
 };

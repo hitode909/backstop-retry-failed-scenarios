@@ -1,5 +1,8 @@
-const { Runner } = require('../lib/Runner');
+/* eslint-disable node/no-unpublished-require */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const {copy, resolve} = require('test-fixture')();
+
+import {Runner} from '../lib/Runner';
 
 describe('Runner', () => {
   test('it receives options', async () => {

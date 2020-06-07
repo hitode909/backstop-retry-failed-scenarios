@@ -1,6 +1,9 @@
-const path = require('path');
-const { Config } = require('../lib/Config');
+/* eslint-disable node/no-unpublished-require */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const {copy, resolve} = require('test-fixture')();
+
+import path from 'path';
+import {Config} from '../lib/Config';
 
 describe('Config', () => {
   test('it represents backstop.json config', async () => {
@@ -9,11 +12,17 @@ describe('Config', () => {
     const config = new Config(dir, 'backstop.json');
     expect(config).toBeDefined();
     expect(config.rawConfig).toBeDefined();
-    expect(config.htmlReportPath).toEqual(path.join(dir, 'backstop_data', 'html_report', 'config.js'));
+    expect(config.htmlReportPath).toEqual(
+      path.join(dir, 'backstop_data', 'html_report', 'config.js')
+    );
     expect(config.htmlReport).toBeDefined();
-    expect(config.jsonReportPath).toEqual(path.join(dir, 'backstop_data', 'json_report', 'jsonReport.json'));
+    expect(config.jsonReportPath).toEqual(
+      path.join(dir, 'backstop_data', 'json_report', 'jsonReport.json')
+    );
     expect(config.jsonReport).toBeDefined();
-    expect(config.ciReportPath).toEqual(path.join(dir, 'backstop_data', 'ci_report', 'xunit.xml'));
+    expect(config.ciReportPath).toEqual(
+      path.join(dir, 'backstop_data', 'ci_report', 'xunit.xml')
+    );
     expect(config.ciReport).toBeDefined();
   });
 
@@ -21,9 +30,15 @@ describe('Config', () => {
     await copy();
     const dir = resolve('backstop', 'custom_report_path');
     const config = new Config(dir, 'backstop.json');
-    expect(config.htmlReportPath).toEqual(path.join(dir, 'custom_backstop_data', 'html_report', 'config.js'));
-    expect(config.jsonReportPath).toEqual(path.join(dir, 'custom_backstop_data', 'json_report', 'jsonReport.json'));
-    expect(config.ciReportPath).toEqual(path.join(dir, 'custom_backstop_data', 'ci_report', 'xunit.xml'));
+    expect(config.htmlReportPath).toEqual(
+      path.join(dir, 'custom_backstop_data', 'html_report', 'config.js')
+    );
+    expect(config.jsonReportPath).toEqual(
+      path.join(dir, 'custom_backstop_data', 'json_report', 'jsonReport.json')
+    );
+    expect(config.ciReportPath).toEqual(
+      path.join(dir, 'custom_backstop_data', 'ci_report', 'xunit.xml')
+    );
   });
 
   test('jsonReport and ciReport are optional', async () => {

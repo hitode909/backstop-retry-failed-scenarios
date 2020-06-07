@@ -1,21 +1,22 @@
 #!/usr/bin/env node
+/* eslint-disable no-process-exit */
 
-const commandLineArgs = require('command-line-args');
-const commandLineUsage = require('command-line-usage');
-const { Runner } = require('./lib/Runner');
+import commandLineArgs from 'command-line-args';
+import commandLineUsage from 'command-line-usage';
+import {Runner} from './lib/Runner';
 
 const optionDefinitions = [
   {
     name: 'help',
     alias: 'h',
     type: Boolean,
-    description: 'Display this usage guide.'
+    description: 'Display this usage guide.',
   },
   {
     name: 'retry',
     type: Number,
     defaultValue: 3,
-    description: 'Retry count'
+    description: 'Retry count',
   },
   {
     name: 'config',
@@ -32,18 +33,17 @@ const optionDefinitions = [
 ];
 const options = commandLineArgs(optionDefinitions);
 
-
 if (options.help) {
   const usage = commandLineUsage([
     {
       header: 'backstop-retry-failed-scenarios',
-      content: 'A wrapper script to retry failed scenario for BackstopJS.'
+      content: 'A wrapper script to retry failed scenario for BackstopJS.',
     },
     {
       header: 'Options',
-      optionList: optionDefinitions
+      optionList: optionDefinitions,
     },
-  ])
+  ]);
   console.log(usage);
   process.exit(0);
 }
@@ -51,7 +51,12 @@ if (options.help) {
 console.log(options);
 
 const main = async () => {
-  const runner = new Runner(options);
+  const runner = new Runner({
+    rootDir: process.cwd(),
+    retry: options.retry,
+    config: options.config,
+    command: options.command,
+  });
   await runner.run();
   process.exit(runner.exitCode);
 };

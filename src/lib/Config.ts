@@ -1,11 +1,13 @@
-const path = require('path');
-const fs = require('fs');
-const { HTMLReport } = require('./HTMLReport');
-const { JSONReport } = require('./JSONReport');
-const { CIReport } = require('./CIReport');
+import path from 'path';
+import fs from 'fs';
+import {HTMLReport} from './HTMLReport';
+import {JSONReport} from './JSONReport';
+import {CIReport} from './CIReport';
 
-module.exports.Config = class Config {
-  constructor(rootDir, configPath) {
+export const Config = class Config {
+  readonly rootDir: string;
+  readonly configPath: string;
+  constructor(rootDir: string, configPath: string) {
     this.rootDir = rootDir;
     this.configPath = configPath;
   }
@@ -38,16 +40,31 @@ module.exports.Config = class Config {
 
   get htmlReportPath() {
     const rawConfig = this.rawConfig;
-    return path.join(this.rootDir, (rawConfig.paths && rawConfig.paths.html_report) || 'backstop_data/html_report', 'config.js');
+    return path.join(
+      this.rootDir,
+      (rawConfig.paths && rawConfig.paths.html_report) ||
+        'backstop_data/html_report',
+      'config.js'
+    );
   }
 
   get jsonReportPath() {
     const rawConfig = this.rawConfig;
-    return path.join(this.rootDir, (rawConfig.paths && rawConfig.paths.json_report) || 'backstop_data/json_report', 'jsonReport.json');
+    return path.join(
+      this.rootDir,
+      (rawConfig.paths && rawConfig.paths.json_report) ||
+        'backstop_data/json_report',
+      'jsonReport.json'
+    );
   }
 
   get ciReportPath() {
     const rawConfig = this.rawConfig;
-    return path.join(this.rootDir, (rawConfig.paths && rawConfig.paths.ci_report) || 'backstop_data/ci_report', 'xunit.xml');
+    return path.join(
+      this.rootDir,
+      (rawConfig.paths && rawConfig.paths.ci_report) ||
+        'backstop_data/ci_report',
+      'xunit.xml'
+    );
   }
-}
+};

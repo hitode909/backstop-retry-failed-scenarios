@@ -1,12 +1,19 @@
-const fs = require('fs');
-const { extractConfigJs, writeConfigJs } = require('../lib/htmlReportJsParser');
+/* eslint-disable node/no-unpublished-require */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const {copy, resolve} = require('test-fixture')();
+
+import fs from 'fs';
+import {extractConfigJs, writeConfigJs} from '../lib/htmlReportJsParser';
 
 describe('extractConfigJs', () => {
   test('it throws error when the target file is missing or broken', async () => {
     await copy();
-    expect(() => { extractConfigJs(resolve('notExistFile')) }).toThrow(/no such file or directory/);
-    expect(() => { extractConfigJs(resolve('config.js.invalid')) }).toThrow(/Unexpected token/);
+    expect(() => {
+      extractConfigJs(resolve('notExistFile'));
+    }).toThrow(/no such file or directory/);
+    expect(() => {
+      extractConfigJs(resolve('config.js.invalid'));
+    }).toThrow(/Unexpected token/);
   });
   test('it extracts argument from JavaScript string file', async () => {
     await copy();
@@ -19,8 +26,8 @@ describe('extractConfigJs', () => {
             label: 'a',
           },
           status: 'pass',
-        }
-      ]
+        },
+      ],
     });
   });
 });
@@ -29,7 +36,9 @@ describe('writeConfigJs', () => {
   test('it writes config.js to specified path', async () => {
     await copy();
     const tmpPath = resolve('tmp.json');
-    writeConfigJs(tmpPath, { tests: [] });
-    expect(fs.readFileSync(tmpPath).toString()).toEqual(`report({\n  "tests": []\n});`);
+    writeConfigJs(tmpPath, {tests: []});
+    expect(fs.readFileSync(tmpPath).toString()).toEqual(
+      'report({\n  "tests": []\n});'
+    );
   });
 });

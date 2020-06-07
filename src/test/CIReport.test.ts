@@ -1,18 +1,32 @@
-const {copy, resolve} = require('test-fixture')()
-const { CIReport } = require('../lib/CIReport');
+/* eslint-disable node/no-unpublished-require */
+/* eslint-disable @typescript-eslint/no-var-requires */
+const {copy, resolve} = require('test-fixture')();
+import {CIReport} from '../lib/CIReport';
 
 describe('CIReport', () => {
   test('it represents xunit.xml', async () => {
     await copy();
-    const report = new CIReport(resolve('backstop', 'failed', 'backstop_data', 'CI_report', 'xunit.xml'));
+    const report = new CIReport(
+      resolve('backstop', 'failed', 'backstop_data', 'CI_report', 'xunit.xml')
+    );
     expect(report).toBeDefined();
     expect(report.rawReport).toBeDefined();
   });
 
   test('it merges test result', async () => {
     await copy();
-    const r1 = new CIReport(resolve('backstop', 'tablet_success_sp_failed', 'backstop_data', 'ci_report', 'xunit.xml'));
-    const r2 = new CIReport(resolve('backstop', 'pass', 'backstop_data', 'ci_report', 'xunit.xml'));
+    const r1 = new CIReport(
+      resolve(
+        'backstop',
+        'tablet_success_sp_failed',
+        'backstop_data',
+        'ci_report',
+        'xunit.xml'
+      )
+    );
+    const r2 = new CIReport(
+      resolve('backstop', 'pass', 'backstop_data', 'ci_report', 'xunit.xml')
+    );
 
     expect(r1.failedCount).toEqual(1);
     expect(r2.failedCount).toEqual(0);
