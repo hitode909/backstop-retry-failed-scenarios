@@ -1,18 +1,18 @@
 # backstop-retry-failed-scenarios
 
-A wrapper command to retry failed scenario for [BackstopJS](https://github.com/garris/BackstopJS).
-It parses report.json, extract failed tests, and rerun with `--filter` option, and rewrite result file.
+A wrapper command to retry failed scenario for [BackstopJS](https://github.com/garris/BackstopJS).<br>
+It parses report.json, extract failed tests, and rerun with `--filter` option, and rewrite result file.<br>
 This is useful when your tests are unstable.
 
 # FEATURES
-- invoke specified test command
-- retry failed tests
-- reorganize each failed reports to latest one status
-  - supports HTML report, JSON report, CI report.
+- Invoke specified test command
+- Generate filter option from failed tests
+- Reorganize each failed reports to latest one status
+  - Supports HTML report, JSON report, CI report.
 
 ## EXAMPLE
 
-This endpoint returns random emoji from three emojis(😀, 😇, 😝).
+This endpoint returns random emoji from three emojis(😀, 😇, 😝).<br>
 Each try may fail, but retrying failed tests will pass all test.
 - https://blog.sushi.money/random_face
 
