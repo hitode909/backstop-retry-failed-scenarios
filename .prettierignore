@@ -1,2 +1,2 @@
-src/test/fixtures
-dist/
+test/fixtures
+dest/
