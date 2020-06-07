@@ -7,7 +7,7 @@ describe('CIReport', () => {
   test('it represents xunit.xml', async () => {
     await copy();
     const report = new CIReport(
-      resolve('backstop', 'failed', 'backstop_data', 'CI_report', 'xunit.xml')
+      resolve('backstop', 'failed', 'backstop_data', 'ci_report', 'xunit.xml')
     );
     expect(report).toBeDefined();
     expect(report.rawReport).toBeDefined();
