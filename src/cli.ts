@@ -16,19 +16,19 @@ const optionDefinitions = [
     name: 'retry',
     type: Number,
     defaultValue: 3,
-    description: 'Retry count',
+    description: 'Retry count. default: 3',
   },
   {
     name: 'config',
     type: String,
     defaultValue: 'backstop.json',
-    description: 'Path to config file',
+    description: 'Path to config file. default: backstop.json',
   },
   {
     name: 'command',
     type: String,
     defaultValue: 'backstop test',
-    description: 'Command to run test',
+    description: 'Command to run test. default: backstop test',
   },
 ];
 const options = commandLineArgs(optionDefinitions);
