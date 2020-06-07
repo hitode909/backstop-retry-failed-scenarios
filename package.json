@@ -1,7 +1,7 @@
 {
   "name": "backstop-retry-failed-scenarios",
   "version": "1.0.0",
-  "description": "",
+  "description": "A wrapper command to retry failed scenario for BackstopJS",
   "scripts": {
     "test": "jest",
     "test-watch": "jest --watch",
@@ -12,7 +12,11 @@
     "prepare": "npm run compile",
     "posttest": "npm run check"
   },
-  "author": "",
+  "author": "hitode909",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hitode909/backstop-retry-failed-scenarios.git"
+  },
   "license": "ISC",
   "devDependencies": {
     "@types/command-line-args": "^5.0.0",
