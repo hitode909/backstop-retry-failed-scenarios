@@ -10,13 +10,15 @@ export type JSONRawReport = {
 };
 
 type CICase = {
+  name: string;
+  classname: string;
   failure: boolean;
 };
 
 export type CIRawReport = {
   testsuites: {
     testsuite: {
-      testcase: CICase[];
+      testcase: CICase[] | CICase;
       failures: number;
       errors: number;
     };

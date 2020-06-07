@@ -11,8 +11,7 @@ export const mergeResults = (
     const newResult = second.tests.find(test => {
       return (
         test.pair.label === oldResult.pair.label &&
-        test.pair.viewportLabel === oldResult.pair.viewportLabel &&
-        test.status === 'pass'
+        test.pair.viewportLabel === oldResult.pair.viewportLabel
       );
     });
     return newResult || oldResult;

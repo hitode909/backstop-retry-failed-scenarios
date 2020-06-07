@@ -40,4 +40,19 @@ describe('CIReport', () => {
     const wroteReport = new CIReport(r1.reportPath);
     expect(wroteReport.passCount).toEqual(2);
   });
+
+  test('it can parse single result', async () => {
+    await copy();
+    const r1 = new CIReport(
+      resolve(
+        'backstop',
+        'failed_single',
+        'backstop_data',
+        'ci_report',
+        'xunit.xml'
+      )
+    );
+    expect(r1.failedCount).toEqual(1);
+    expect(r1.passCount).toEqual(0);
+  });
 });
