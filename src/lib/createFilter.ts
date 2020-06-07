@@ -3,7 +3,6 @@ import {JSONRawReport} from './Types';
 
 /**
  *
- * @param {Object} report
  * @returns {(String|null)} filter string for failed tests
  */
 export const createFilter = (report: JSONRawReport): string | null => {
