@@ -35,13 +35,15 @@ $ backstop reference
 $ backstop-retry-failed-scenarios --retry 5 --command 'backstop test' --config backstop.js
 ```
 
-Also you can run BackstopJS on docker, like this.
+
+Instead of npm install, you can pull [hitode909/backstop-retry-failed-scenarios](https://hub.docker.com/repository/docker/hitode909/backstop-retry-failed-scenarios) from DockerHub.<br>
+Its image is based on [backstopjs/backstopjs](https://hub.docker.com/r/backstopjs/backstopjs), so you can execute backstop directly from `docker run hitode909/backstop-retry-failed-scenarios`.
 
 ```
-$ npm install -g backstop-retry-failed-scenarios
-$ docker run --rm -v $(pwd):/src backstopjs/backstopjs init
-$ docker run --rm -v $(pwd):/src backstopjs/backstopjs reference
-$ backstop-retry-failed-scenarios --retry 5 --command 'docker run --rm -v $(pwd):/src backstopjs/backstopjs test'
+$ docker pull hitode909/backstop-retry-failed-scenarios
+$ docker run --rm -v $(pwd):/src hitode909/backstop-retry-failed-scenarios backstop init
+$ docker run --rm -v $(pwd):/src hitode909/backstop-retry-failed-scenarios backstop reference
+$ docker run --rm -v $(pwd):/src hitode909/backstop-retry-failed-scenarios backstop-retry-failed-scenarios
 ```
 
 ## OPTIONS
