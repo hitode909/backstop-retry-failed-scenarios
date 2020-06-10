@@ -4,19 +4,11 @@ test('it returns object', () => {
   expect(mergeResults({tests: []}, {tests: []})).toStrictEqual({tests: []});
 });
 
-test('it replaces old failed test with new passed test', () => {
+test('it replaces old failed test with new passed test. Replaced test comes to the head.', () => {
   expect(
     mergeResults(
       {
         tests: [
-          {
-            pair: {
-              label: 'a',
-              viewportLabel: 'phone',
-              fileName: 'a.png',
-            },
-            status: 'fail',
-          },
           {
             pair: {
               label: 'b',
@@ -24,6 +16,14 @@ test('it replaces old failed test with new passed test', () => {
               fileName: 'a.png',
             },
             status: 'pass',
+          },
+          {
+            pair: {
+              label: 'a',
+              viewportLabel: 'phone',
+              fileName: 'a.png',
+            },
+            status: 'fail',
           },
         ],
       },
