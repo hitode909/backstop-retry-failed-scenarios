@@ -7,6 +7,7 @@ export const Runner = class Runner {
   retryCount: number;
   configPath: string;
   command: string;
+  referenceCommand?: string;
   retriedCount: number;
   exitCode: number;
   constructor(
@@ -15,12 +16,14 @@ export const Runner = class Runner {
       retry: number;
       config: string;
       command: string;
+      referenceCommand: string;
     }>
   ) {
     this.rootDir = options.rootDir || process.cwd();
     this.retryCount = options.retry || 3;
     this.configPath = options.config || 'backstop.json';
     this.command = options.command || 'backstop test';
+    this.referenceCommand = options.referenceCommand;
     this.retriedCount = 0;
     this.exitCode = 1;
   }
@@ -35,13 +38,21 @@ export const Runner = class Runner {
     let filterOption = '';
     const config = this.config;
     let reports;
+
     while (this.retriedCount < this.retryCount) {
       this.retriedCount++;
-      const command = `${baseCommand} ${filterOption}`;
+      if (this.referenceCommand) {
+        const referenceCommand = `${this.referenceCommand} ${filterOption}`;
+        console.log(
+          `Running(${this.retriedCount}/${this.retryCount}) ${referenceCommand}`
+        );
+        await this.runOnce(referenceCommand);
+      }
+      const testCommand = `${baseCommand} ${filterOption}`;
       console.log(
-        `Running(${this.retriedCount}/${this.retryCount}) ${command}`
+        `Running(${this.retriedCount}/${this.retryCount}) ${testCommand}`
       );
-      const runResult = await this.runOnce(command);
+      const runResult = await this.runOnce(testCommand);
       if (reports) {
         if (reports.htmlReport) {
           reports.htmlReport.notifyNewReport(config.htmlReport);

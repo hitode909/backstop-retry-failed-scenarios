@@ -11,12 +11,14 @@ describe('Runner', () => {
       retry: 3,
       config: 'backstop.json',
       command: 'backstop test',
+      referenceCommand: 'backstop reference',
       rootDir: resolve('backstop/failed'),
     });
     expect(runner).toBeDefined();
     expect(runner.retryCount).toEqual(3);
     expect(runner.configPath).toEqual('backstop.json');
     expect(runner.command).toEqual('backstop test');
+    expect(runner.referenceCommand).toEqual('backstop reference');
   });
 
   test('it parses config', async () => {
@@ -36,6 +38,7 @@ describe('Runner', () => {
         retry: 3,
         config: 'backstop.json',
         command: 'cal -y',
+        referenceCommand: 'cal',
         rootDir: resolve('backstop/failed'),
       });
       expect(await runner.run()).toEqual(true);
@@ -47,6 +50,7 @@ describe('Runner', () => {
       const runner = new Runner({
         retry: 3,
         config: 'backstop.json',
+        referenceCommand: 'not_existing_command',
         command: 'not_existing_command',
         rootDir: resolve('backstop/failed'),
       });

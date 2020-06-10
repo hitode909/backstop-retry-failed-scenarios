@@ -17,6 +17,11 @@
       "label": "random_face",
       "url": "https://blog.sushi.money/random_face",
       "selectors": ["article"]
+    },
+    {
+      "label": "static_face",
+      "url": "https://blog.sushi.money/face",
+      "selectors": ["article"]
     }
   ],
   "paths": {

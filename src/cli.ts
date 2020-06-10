@@ -30,6 +30,13 @@ const optionDefinitions = [
     defaultValue: 'backstop test',
     description: 'Command to run test. default: backstop test',
   },
+  {
+    name: 'reference-command',
+    type: String,
+    defaultValue: null,
+    description:
+      'Command to create reference before testing. Default: null (Do not create reference before test).',
+  },
 ];
 const options = commandLineArgs(optionDefinitions);
 
@@ -54,6 +61,7 @@ const main = async () => {
     retry: options.retry,
     config: options.config,
     command: options.command,
+    referenceCommand: options['reference-command'],
   });
   await runner.run();
   process.exit(runner.exitCode);
