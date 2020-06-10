@@ -6,18 +6,12 @@ export const mergeResults = (
 ): JSONRawReport => {
   if (!first.tests || !second.tests) return first;
 
-  const newTests = first.tests.map(oldResult => {
-    if (oldResult.status === 'pass') return oldResult;
-    const newResult = second.tests.find(test => {
-      return (
-        test.pair.label === oldResult.pair.label &&
-        test.pair.viewportLabel === oldResult.pair.viewportLabel
-      );
-    });
-    return newResult || oldResult;
-  });
+  const secondLabels = new Set<string>(second.tests.map(t => t.pair.label));
+  const firstToKeep = first.tests.filter(t => !secondLabels.has(t.pair.label));
+
   return {
     ...first,
-    tests: newTests,
+    // new test first
+    tests: [...second.tests, ...firstToKeep],
   };
 };

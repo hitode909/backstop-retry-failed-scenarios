@@ -13,15 +13,17 @@ test('it replaces old failed test with new passed test', () => {
             pair: {
               label: 'a',
               viewportLabel: 'phone',
+              fileName: 'a.png',
             },
             status: 'fail',
           },
           {
             pair: {
-              label: 'a',
+              label: 'b',
               viewportLabel: 'tablet',
+              fileName: 'a.png',
             },
-            status: 'fail',
+            status: 'pass',
           },
         ],
       },
@@ -31,6 +33,7 @@ test('it replaces old failed test with new passed test', () => {
             pair: {
               label: 'a',
               viewportLabel: 'phone',
+              fileName: 'a.png',
             },
             status: 'pass',
           },
@@ -43,15 +46,17 @@ test('it replaces old failed test with new passed test', () => {
         pair: {
           label: 'a',
           viewportLabel: 'phone',
+          fileName: 'a.png',
         },
         status: 'pass',
       },
       {
         pair: {
-          label: 'a',
+          label: 'b',
           viewportLabel: 'tablet',
+          fileName: 'a.png',
         },
-        status: 'fail',
+        status: 'pass',
       },
     ],
   });

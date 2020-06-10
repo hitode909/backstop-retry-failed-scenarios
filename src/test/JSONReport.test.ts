@@ -3,6 +3,29 @@
 const {copy, resolve} = require('test-fixture')();
 
 import {JSONReport} from '../lib/JSONReport';
+import {JSONRawReport} from '../lib/Types';
+
+const mapForTest = (report: JSONRawReport) => {
+  return report.tests.map(t => {
+    return {
+      status: t.status,
+      fileName: t.pair.fileName,
+    };
+  });
+};
+
+const allPass = [
+  {
+    status: 'pass',
+    fileName:
+      'backstop_default_BackstopJS_Homepage_0_imggithub-icon_0_tablet.png',
+  },
+  {
+    status: 'pass',
+    fileName:
+      'backstop_default_BackstopJS_Homepage_1_imggithub-icon__n1_0_tablet.png',
+  },
+];
 
 describe('JSONReport', () => {
   test('it represents jsonReport.json', async () => {
@@ -52,5 +75,45 @@ describe('JSONReport', () => {
     r1.write();
     const wroteReport = new JSONReport(r1.reportPath);
     expect(wroteReport.passCount).toEqual(2);
+  });
+
+  test('2fail to 2pass', async () => {
+    await copy();
+    const r1 = new JSONReport(
+      resolve(
+        'backstop/failed-multi-elements/all-failed/backstop_data/json_report',
+        'jsonReport.json'
+      )
+    );
+    const r2 = new JSONReport(
+      resolve(
+        'backstop/failed-multi-elements/all-success/backstop_data/json_report',
+        'jsonReport.json'
+      )
+    );
+
+    r1.notifyNewReport(r2);
+
+    expect(mapForTest(r1.rawReport)).toStrictEqual(allPass);
+  });
+
+  test('1pass1fail to 2pass', async () => {
+    await copy();
+    const r1 = new JSONReport(
+      resolve(
+        'backstop/failed-multi-elements/1fail1pass/backstop_data/json_report',
+        'jsonReport.json'
+      )
+    );
+    const r2 = new JSONReport(
+      resolve(
+        'backstop/failed-multi-elements/all-success/backstop_data/json_report',
+        'jsonReport.json'
+      )
+    );
+
+    r1.notifyNewReport(r2);
+
+    expect(mapForTest(r1.rawReport)).toStrictEqual(allPass);
   });
 });
