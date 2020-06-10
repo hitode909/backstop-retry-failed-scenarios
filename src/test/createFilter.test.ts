@@ -12,6 +12,7 @@ test('returns empty string when all tests succeed', () => {
           pair: {
             label: 'a',
             viewportLabel: 'pc',
+            fileName: 'a-pc.png',
           },
           status: 'pass',
         },
@@ -28,6 +29,7 @@ test('returns filter string from failed tests', () => {
           pair: {
             label: 'a',
             viewportLabel: 'pc',
+            fileName: 'a-pc.png',
           },
           status: 'fail',
         },
@@ -35,6 +37,7 @@ test('returns filter string from failed tests', () => {
           pair: {
             label: 'b',
             viewportLabel: 'pc',
+            fileName: 'b-pc.png',
           },
           status: 'pass',
         },
@@ -42,6 +45,7 @@ test('returns filter string from failed tests', () => {
           pair: {
             label: 'c',
             viewportLabel: 'pc',
+            fileName: 'c-pc.png',
           },
           status: 'fail',
         },
@@ -49,6 +53,7 @@ test('returns filter string from failed tests', () => {
           pair: {
             label: 'a',
             viewportLabel: 'pc',
+            fileName: 'a-pc.png',
           },
           status: 'fail',
         },
@@ -64,6 +69,7 @@ test('it escapes string for RegExp', () => {
         pair: {
           label: '^',
           viewportLabel: 'pc',
+          fileName: '^.png',
         },
         status: 'fail',
       },
@@ -71,6 +77,7 @@ test('it escapes string for RegExp', () => {
         pair: {
           label: '(',
           viewportLabel: 'pc',
+          fileName: '(.png',
         },
         status: 'fail',
       },
