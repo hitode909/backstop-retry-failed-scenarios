@@ -46,10 +46,24 @@ $ docker run --rm -v $(pwd):/src hitode909/backstop-retry-failed-scenarios backs
 $ docker run --rm -v $(pwd):/src hitode909/backstop-retry-failed-scenarios backstop-retry-failed-scenarios
 ```
 
+If you want to recreate references every time, Please set `--reference-command` option. This will do like this.
+1. create all references
+2. run all tests
+3. create references for failed tests on 2.
+4. run tests for failed tests on 2.
+
+This is useful when your reference refers to production instead static file, and test refers to staging environment.
+
+```
+$ backstop init
+$ backstop-retry-failed-scenarios --reference-command 'backstop reference' --command 'backstop test' --config backstop.js
+```
+
 ## OPTIONS
 
 ```
-  --retry number     Retry count. default: 3
-  --config string    Path to config file. default: backstop.json
-  --command string   Command to run test. default: backstop test
+  --retry             number Retry count. default: 3
+  --config            string Path to config file. default: backstop.json
+  --command           string Command to run test. default: backstop test
+  --reference-command string Command to create reference before testing. Default: null (Do not create reference before test).
 ```
