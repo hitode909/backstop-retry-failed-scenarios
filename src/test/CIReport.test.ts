@@ -55,4 +55,24 @@ describe('CIReport', () => {
     expect(r1.failedCount).toEqual(1);
     expect(r1.passCount).toEqual(0);
   });
+
+  test('1pass1fail to 2pass', async () => {
+    await copy();
+    const r1 = new CIReport(
+      resolve(
+        'backstop/failed-multi-elements/1fail1pass/backstop_data/ci_report',
+        'xunit.xml'
+      )
+    );
+    const r2 = new CIReport(
+      resolve(
+        'backstop/failed-multi-elements/all-success/backstop_data/ci_report',
+        'xunit.xml'
+      )
+    );
+
+    r1.notifyNewReport(r2);
+
+    expect(r1.rawReport).toStrictEqual(r2.rawReport);
+  });
 });

@@ -8,22 +8,22 @@ const flat = <T>(testcase: T | T[]): T[] => {
 };
 
 export const mergeResults = (
-  first: CIRawReport,
-  second: CIRawReport
+  firstReport: CIRawReport,
+  secondReport: CIRawReport
 ): CIRawReport => {
-  const newTestCases = flat(first.testsuites.testsuite.testcase).map(t1 => {
-    if (!t1.failure) return t1;
-    const newResult = flat(second.testsuites.testsuite.testcase).find(t2 => {
-      return t1.name === t2.name && t1.classname === t2.classname;
-    });
-    return newResult || t1;
-  });
+  const first = flat(flat(firstReport.testsuites.testsuite.testcase));
+  const second = flat(flat(secondReport.testsuites.testsuite.testcase));
+  if (!first.length || !second.length) return firstReport;
+
+  const secondLabels = new Set<string>(second.map(t => t.name));
+  const firstToKeep = first.filter(t => !secondLabels.has(t.name));
+
   return {
     testsuites: {
       testsuite: {
-        testcase: newTestCases,
-        failures: 0,
-        errors: 0,
+        testcase: [...second, ...firstToKeep],
+        failures: '0',
+        errors: '0',
       },
     },
   };
@@ -58,8 +58,8 @@ export const CIReport = class CIReport {
     const testcase = mergeResults(this.rawReport, newReport.rawReport);
     this.rawReport.testsuites.testsuite.testcase =
       testcase.testsuites.testsuite.testcase;
-    this.rawReport.testsuites.testsuite.failures = this.failedCount;
-    this.rawReport.testsuites.testsuite.errors = this.failedCount;
+    this.rawReport.testsuites.testsuite.failures = `${this.failedCount}`;
+    this.rawReport.testsuites.testsuite.errors = `${this.failedCount}`;
   }
 
   write() {
