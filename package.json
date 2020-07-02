@@ -30,7 +30,7 @@
     "jest": "26.1.0",
     "test-fixture": "2.4.1",
     "ts-jest": "26.1.0",
-    "typescript": "3.9.5"
+    "typescript": "3.9.6"
   },
   "dependencies": {
     "command-line-args": "5.1.1",
