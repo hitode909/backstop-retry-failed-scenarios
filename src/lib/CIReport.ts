@@ -67,6 +67,9 @@ export const CIReport = class CIReport {
   }
 
   writeTo(reportPath: string) {
-    fs.writeFileSync(reportPath, parser.toXml(this.rawReport));
+    fs.writeFileSync(
+      reportPath,
+      parser.toXml(this.rawReport, {sanitize: true})
+    );
   }
 };
