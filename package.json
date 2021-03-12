@@ -1,6 +1,6 @@
 {
   "name": "backstop-retry-failed-scenarios",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "A wrapper command to retry failed scenario for BackstopJS",
   "engines": {
     "node": ">=10.18.1"
