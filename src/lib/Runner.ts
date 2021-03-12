@@ -40,7 +40,7 @@ export const Runner = class Runner {
   }
 
   async run() {
-    this.traceProfiler.start('backstop.run');
+    this.traceProfiler.start('run');
 
     this.retriedCount = 0;
     const baseCommand = this.command;
@@ -55,17 +55,17 @@ export const Runner = class Runner {
         console.log(
           `Running(${this.retriedCount}/${this.retryCount}) ${referenceCommand}`
         );
-        this.traceProfiler.start(`backstop.${this.retriedCount}.reference`);
+        this.traceProfiler.start(`${this.retriedCount}.reference`);
         await this.runOnce(referenceCommand);
-        this.traceProfiler.end(`backstop.${this.retriedCount}.reference`);
+        this.traceProfiler.end(`${this.retriedCount}.reference`);
       }
       const testCommand = `${baseCommand} ${filterOption}`;
       console.log(
         `Running(${this.retriedCount}/${this.retryCount}) ${testCommand}`
       );
-      this.traceProfiler.start(`backstop.${this.retriedCount}.test`);
+      this.traceProfiler.start(`${this.retriedCount}.test`);
       const runResult = await this.runOnce(testCommand);
-      this.traceProfiler.end(`backstop.${this.retriedCount}.test`);
+      this.traceProfiler.end(`${this.retriedCount}.test`);
       if (reports) {
         if (reports.htmlReport) {
           reports.htmlReport.notifyNewReport(config.htmlReport);
@@ -81,7 +81,7 @@ export const Runner = class Runner {
         }
       }
       if (runResult) {
-        this.traceProfiler.end('backstop.run');
+        this.traceProfiler.end('run');
         this.writeProfile();
         return true;
       }
@@ -94,7 +94,7 @@ export const Runner = class Runner {
         };
       }
     }
-    this.traceProfiler.end('backstop.run');
+    this.traceProfiler.end('run');
     this.writeProfile();
     return false;
   }

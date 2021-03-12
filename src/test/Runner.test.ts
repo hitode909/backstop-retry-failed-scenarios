@@ -75,31 +75,31 @@ describe('Runner', () => {
       await runner.run();
       expect(JSON.parse(fs.readFileSync(outputProfile).toString())).toEqual([
         {
-          label: 'backstop.run',
+          label: 'run',
           duration: expect.any(Number),
           startTime: expect.any(Number),
           endTime: expect.any(Number),
         },
         {
-          label: 'backstop.1.reference',
+          label: '1.reference',
           duration: expect.any(Number),
           startTime: expect.any(Number),
           endTime: expect.any(Number),
         },
         {
-          label: 'backstop.1.test',
+          label: '1.test',
           duration: expect.any(Number),
           startTime: expect.any(Number),
           endTime: expect.any(Number),
         },
         {
-          label: 'backstop.2.reference',
+          label: '2.reference',
           duration: expect.any(Number),
           startTime: expect.any(Number),
           endTime: expect.any(Number),
         },
         {
-          label: 'backstop.2.test',
+          label: '2.test',
           duration: expect.any(Number),
           startTime: expect.any(Number),
           endTime: expect.any(Number),
