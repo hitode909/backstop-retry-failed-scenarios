@@ -41,7 +41,7 @@ const optionDefinitions = [
     name: 'output-profile',
     type: String,
     defaultValue: null,
-    description: 'Measure the execution time and output the report as JSON.',
+    description: 'Path to profiler output file. If present, measure the execution time and output the report as JSON.',
   },
 ];
 const options = commandLineArgs(optionDefinitions);
