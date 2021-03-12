@@ -4,6 +4,9 @@ import fs from 'fs';
 import {Config} from './Config';
 import {TraceProfiler} from './TraceProfiler';
 
+// 0 means not run, 1 means just run once, 2 is meaningful minimum count.
+const MINIMUM_RETRY_COUNT = 2;
+
 export const Runner = class Runner {
   rootDir: string;
   retryCount: number;
@@ -25,7 +28,7 @@ export const Runner = class Runner {
     }>
   ) {
     this.rootDir = options.rootDir || process.cwd();
-    this.retryCount = options.retry || 3;
+    this.retryCount = Math.max(options.retry || 3, MINIMUM_RETRY_COUNT);
     this.configPath = options.config || 'backstop.json';
     this.command = options.command || 'backstop test';
     this.referenceCommand = options.referenceCommand;
