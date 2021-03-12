@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "command-line-args": "5.1.1",
-    "command-line-usage": "6.1.0",
+    "command-line-usage": "6.1.1",
     "escape-string-regexp": "4.0.0",
     "xml2json": "0.12.0"
   },
