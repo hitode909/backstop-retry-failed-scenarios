@@ -37,6 +37,12 @@ const optionDefinitions = [
     description:
       'Command to create reference before testing. Default: null (Do not create reference before test).',
   },
+  {
+    name: 'output-profile',
+    type: String,
+    defaultValue: null,
+    description: 'Measure the execution time and output the report as JSON.',
+  },
 ];
 const options = commandLineArgs(optionDefinitions);
 
@@ -62,6 +68,7 @@ const main = async () => {
     config: options.config,
     command: options.command,
     referenceCommand: options['reference-command'],
+    outputProfile: options['output-profile'],
   });
   await runner.run();
   process.exit(runner.exitCode);
