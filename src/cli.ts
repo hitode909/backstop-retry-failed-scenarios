@@ -15,8 +15,8 @@ const optionDefinitions = [
   {
     name: 'retry',
     type: Number,
-    defaultValue: 3,
-    description: 'Retry count. default: 3, minimum: 2',
+    defaultValue: 2,
+    description: 'Trial count. default: 2(Run once, retry once). minimum: 2',
   },
   {
     name: 'config',

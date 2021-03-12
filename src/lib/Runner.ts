@@ -28,7 +28,7 @@ export const Runner = class Runner {
     }>
   ) {
     this.rootDir = options.rootDir || process.cwd();
-    this.retryCount = Math.max(options.retry || 3, MINIMUM_RETRY_COUNT);
+    this.retryCount = Math.max(options.retry || MINIMUM_RETRY_COUNT, MINIMUM_RETRY_COUNT);
     this.configPath = options.config || 'backstop.json';
     this.command = options.command || 'backstop test';
     this.referenceCommand = options.referenceCommand;
