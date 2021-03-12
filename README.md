@@ -62,7 +62,7 @@ $ backstop-retry-failed-scenarios --reference-command 'backstop reference' --com
 ## OPTIONS
 
 ```
-  --retry             number Retry count. default: 3
+  --retry             number Trial count. default: 2(Run once, retry once). minimum: 2
   --config            string Path to config file. default: backstop.json
   --command           string Command to run test. default: backstop test
   --reference-command string Command to create reference before testing. Default: null (Do not create reference before test).

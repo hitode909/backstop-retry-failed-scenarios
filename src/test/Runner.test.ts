@@ -24,6 +24,15 @@ describe('Runner', () => {
     expect(runner.outputProfile).toEqual('profile.json');
   });
 
+  test('minimum retry count is 2', async () => {
+    await copy();
+    const runner = new Runner({
+      retry: 1,
+    });
+    expect(runner).toBeDefined();
+    expect(runner.retryCount).toEqual(2);
+  });
+
   test('it parses config', async () => {
     await copy();
     const runner = new Runner({
