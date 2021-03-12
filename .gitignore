@@ -1,2 +1,3 @@
 dist/
 examples/**/backstop_data/
+node_modules

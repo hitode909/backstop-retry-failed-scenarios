@@ -66,4 +66,5 @@ $ backstop-retry-failed-scenarios --reference-command 'backstop reference' --com
   --config            string Path to config file. default: backstop.json
   --command           string Command to run test. default: backstop test
   --reference-command string Command to create reference before testing. Default: null (Do not create reference before test).
+  --output-profile    string Path to profiler output file. If present, measure the execution time and output the report as JSON.
 ```

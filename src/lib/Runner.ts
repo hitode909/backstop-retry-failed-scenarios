@@ -1,6 +1,8 @@
 import child_process from 'child_process';
+import fs from 'fs';
 
 import {Config} from './Config';
+import {TraceProfiler} from './TraceProfiler';
 
 export const Runner = class Runner {
   rootDir: string;
@@ -8,6 +10,8 @@ export const Runner = class Runner {
   configPath: string;
   command: string;
   referenceCommand?: string;
+  outputProfile?: string;
+  traceProfiler: TraceProfiler;
   retriedCount: number;
   exitCode: number;
   constructor(
@@ -17,6 +21,7 @@ export const Runner = class Runner {
       config: string;
       command: string;
       referenceCommand: string;
+      outputProfile: string;
     }>
   ) {
     this.rootDir = options.rootDir || process.cwd();
@@ -24,6 +29,8 @@ export const Runner = class Runner {
     this.configPath = options.config || 'backstop.json';
     this.command = options.command || 'backstop test';
     this.referenceCommand = options.referenceCommand;
+    this.outputProfile = options.outputProfile;
+    this.traceProfiler = new TraceProfiler();
     this.retriedCount = 0;
     this.exitCode = 1;
   }
@@ -33,6 +40,8 @@ export const Runner = class Runner {
   }
 
   async run() {
+    this.traceProfiler.start('run');
+
     this.retriedCount = 0;
     const baseCommand = this.command;
     let filterOption = '';
@@ -46,13 +55,17 @@ export const Runner = class Runner {
         console.log(
           `Running(${this.retriedCount}/${this.retryCount}) ${referenceCommand}`
         );
+        this.traceProfiler.start(`${this.retriedCount}.reference`);
         await this.runOnce(referenceCommand);
+        this.traceProfiler.end(`${this.retriedCount}.reference`);
       }
       const testCommand = `${baseCommand} ${filterOption}`;
       console.log(
         `Running(${this.retriedCount}/${this.retryCount}) ${testCommand}`
       );
+      this.traceProfiler.start(`${this.retriedCount}.test`);
       const runResult = await this.runOnce(testCommand);
+      this.traceProfiler.end(`${this.retriedCount}.test`);
       if (reports) {
         if (reports.htmlReport) {
           reports.htmlReport.notifyNewReport(config.htmlReport);
@@ -67,7 +80,11 @@ export const Runner = class Runner {
           reports.ciReport.write();
         }
       }
-      if (runResult) return true;
+      if (runResult) {
+        this.traceProfiler.end('run');
+        this.writeProfile();
+        return true;
+      }
       filterOption = `--filter '${this.filter}'`;
       if (!reports) {
         reports = {
@@ -77,6 +94,8 @@ export const Runner = class Runner {
         };
       }
     }
+    this.traceProfiler.end('run');
+    this.writeProfile();
     return false;
   }
 
@@ -105,5 +124,14 @@ export const Runner = class Runner {
 
   get filter() {
     return this.config.htmlReport.filter;
+  }
+
+  private writeProfile() {
+    if (!this.outputProfile) return;
+    const traceProfile = this.traceProfiler.generateReport();
+    fs.writeFileSync(
+      this.outputProfile,
+      JSON.stringify(traceProfile, null, '  ')
+    );
   }
 };

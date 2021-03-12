@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const {copy, resolve} = require('test-fixture')();
 
+import fs from 'fs';
 import {Runner} from '../lib/Runner';
 
 describe('Runner', () => {
@@ -12,6 +13,7 @@ describe('Runner', () => {
       config: 'backstop.json',
       command: 'backstop test',
       referenceCommand: 'backstop reference',
+      outputProfile: 'profile.json',
       rootDir: resolve('backstop/failed'),
     });
     expect(runner).toBeDefined();
@@ -19,6 +21,7 @@ describe('Runner', () => {
     expect(runner.configPath).toEqual('backstop.json');
     expect(runner.command).toEqual('backstop test');
     expect(runner.referenceCommand).toEqual('backstop reference');
+    expect(runner.outputProfile).toEqual('profile.json');
   });
 
   test('it parses config', async () => {
@@ -56,6 +59,52 @@ describe('Runner', () => {
       });
       expect(await runner.run()).toEqual(false);
       expect(runner.retriedCount).toEqual(3);
+    });
+
+    test('it generates output profile', async () => {
+      await copy();
+      const outputProfile = resolve('profile.json');
+      const runner = new Runner({
+        retry: 2,
+        config: 'backstop.json',
+        referenceCommand: 'not_existing_command',
+        command: 'not_existing_command',
+        outputProfile,
+        rootDir: resolve('backstop/failed'),
+      });
+      await runner.run();
+      expect(JSON.parse(fs.readFileSync(outputProfile).toString())).toEqual([
+        {
+          label: 'run',
+          duration: expect.any(Number),
+          startTime: expect.any(Number),
+          endTime: expect.any(Number),
+        },
+        {
+          label: '1.reference',
+          duration: expect.any(Number),
+          startTime: expect.any(Number),
+          endTime: expect.any(Number),
+        },
+        {
+          label: '1.test',
+          duration: expect.any(Number),
+          startTime: expect.any(Number),
+          endTime: expect.any(Number),
+        },
+        {
+          label: '2.reference',
+          duration: expect.any(Number),
+          startTime: expect.any(Number),
+          endTime: expect.any(Number),
+        },
+        {
+          label: '2.test',
+          duration: expect.any(Number),
+          startTime: expect.any(Number),
+          endTime: expect.any(Number),
+        },
+      ]);
     });
   });
 
