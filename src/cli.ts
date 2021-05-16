@@ -73,7 +73,7 @@ const main = async () => {
   });
   try {
     await runner.run();
-  } catch(error) {
+  } catch (error) {
     process.exit(1);
   }
   process.exit(runner.exitCode);
