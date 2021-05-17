@@ -71,7 +71,12 @@ const main = async () => {
     referenceCommand: options['reference-command'],
     outputProfile: options['output-profile'],
   });
-  await runner.run();
+  try {
+    await runner.run();
+  } catch (error) {
+    process.exit(1);
+  }
   process.exit(runner.exitCode);
 };
+
 main();
