@@ -23,7 +23,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@types/command-line-args": "5.0.0",
+    "@types/command-line-args": "5.2.0",
     "@types/command-line-usage": "5.0.1",
     "@types/jest": "26.0.20",
     "@types/node": "13.13.46",
@@ -36,7 +36,7 @@
     "typescript": "4.3.5"
   },
   "dependencies": {
-    "command-line-args": "5.1.1",
+    "command-line-args": "5.2.0",
     "command-line-usage": "6.1.1",
     "escape-string-regexp": "4.0.0",
     "xml2json": "0.12.0"
