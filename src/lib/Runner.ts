@@ -111,7 +111,7 @@ export const Runner = class Runner {
       try {
         child = child_process.spawn(command, {shell: true});
       } catch (error) {
-        console.warn(error.replace(/^/gm, '#  '));
+        console.warn(`${error}`.replace(/^/gm, '#  '));
         resolve(false);
         return;
       }
