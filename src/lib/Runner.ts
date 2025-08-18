@@ -122,7 +122,7 @@ export const Runner = class Runner {
         process.stderr.write(data.toString().replace(/^/gm, '#  '));
       });
       child.on('close', code => {
-        this.exitCode = code;
+        this.exitCode = code ?? 1;
         resolve(code === 0);
       });
     });
