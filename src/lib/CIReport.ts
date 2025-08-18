@@ -1,5 +1,5 @@
 import fs from 'fs';
-import parser from 'xml2json';
+import {XMLParser, XMLBuilder} from 'fast-xml-parser';
 
 import {CIRawReport} from './Types';
 
@@ -32,12 +32,26 @@ export const mergeResults = (
 export const CIReport = class CIReport {
   readonly reportPath: string;
   rawReport: CIRawReport;
+  private xmlParser = new XMLParser({
+    ignoreAttributes: false,
+    attributeNamePrefix: '',
+    alwaysCreateTextNode: false,
+    parseAttributeValue: false,
+    parseTagValue: false,
+  });
+  private xmlBuilder = new XMLBuilder({
+    format: true,
+    ignoreAttributes: false,
+    attributeNamePrefix: '',
+    suppressBooleanAttributes: false,
+  });
+
   constructor(reportPath: string) {
     this.reportPath = reportPath;
 
-    this.rawReport = parser.toJson(fs.readFileSync(reportPath).toString(), {
-      object: true,
-    }) as CIRawReport; // XXX
+    this.rawReport = this.xmlParser.parse(
+      fs.readFileSync(reportPath).toString()
+    ) as CIRawReport;
   }
 
   get passCount() {
@@ -67,9 +81,6 @@ export const CIReport = class CIReport {
   }
 
   writeTo(reportPath: string) {
-    fs.writeFileSync(
-      reportPath,
-      parser.toXml(this.rawReport, {sanitize: true})
-    );
+    fs.writeFileSync(reportPath, this.xmlBuilder.build(this.rawReport));
   }
 };
