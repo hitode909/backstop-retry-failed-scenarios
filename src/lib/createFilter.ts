@@ -15,6 +15,6 @@ export const createFilter = (report: JSONRawReport): string | null => {
   ];
   if (failedTestLabels.length === 0) return null;
   return `^(${failedTestLabels
-    .map(label => escapeStringRegexp(label))
+    .map(label => escapeStringRegexp(label).replace('/', '\\/').replace("'", "\\'"))
     .join('|')})$`;
 };
