@@ -5,7 +5,8 @@
     "outDir": "dist",
     "esModuleInterop": true,
     "sourceMap": false,
-    "declaration": false
+    "declaration": false,
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*.ts"
