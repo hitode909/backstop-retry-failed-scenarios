@@ -7,7 +7,7 @@ import {TraceProfiler} from './TraceProfiler';
 // 0 means not run, 1 means just run once, 2 is meaningful minimum count.
 const MINIMUM_RETRY_COUNT = 2;
 
-export const Runner = class Runner {
+export class Runner {
   rootDir: string;
   retryCount: number;
   configPath: string;
@@ -122,7 +122,7 @@ export const Runner = class Runner {
         process.stderr.write(data.toString().replace(/^/gm, '#  '));
       });
       child.on('close', code => {
-        this.exitCode = code;
+        this.exitCode = code || 0;
         resolve(code === 0);
       });
     });
@@ -140,4 +140,4 @@ export const Runner = class Runner {
       JSON.stringify(traceProfile, null, '  ')
     );
   }
-};
+}

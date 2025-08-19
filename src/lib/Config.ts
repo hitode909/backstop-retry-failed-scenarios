@@ -4,7 +4,7 @@ import {HTMLReport} from './HTMLReport';
 import {JSONReport} from './JSONReport';
 import {CIReport} from './CIReport';
 
-export const Config = class Config {
+export class Config {
   readonly rootDir: string;
   readonly configPath: string;
   constructor(rootDir: string, configPath: string) {
@@ -67,4 +67,4 @@ export const Config = class Config {
       'xunit.xml'
     );
   }
-};
+}
