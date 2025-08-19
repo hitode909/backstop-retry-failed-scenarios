@@ -2,10 +2,9 @@ import {TraceProfiler} from '../lib/TraceProfiler';
 import {performance} from 'perf_hooks';
 
 function mockPerformanceNow(timestamp: number, fn: () => void): void {
-  const nativePerformanceNow = performance.now;
-  performance.now = jest.fn(() => timestamp);
+  const spy = jest.spyOn(performance, 'now').mockReturnValue(timestamp);
   fn();
-  performance.now = nativePerformanceNow;
+  spy.mockRestore();
 }
 
 describe('TraceProfiler', () => {
