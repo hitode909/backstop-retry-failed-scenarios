@@ -29,7 +29,7 @@ export const mergeResults = (
   };
 };
 
-export const CIReport = class CIReport {
+export class CIReport {
   readonly reportPath: string;
   rawReport: CIRawReport;
   private xmlParser = new XMLParser({
@@ -83,4 +83,4 @@ export const CIReport = class CIReport {
   writeTo(reportPath: string) {
     fs.writeFileSync(reportPath, this.xmlBuilder.build(this.rawReport));
   }
-};
+}

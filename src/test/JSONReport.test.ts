@@ -1,6 +1,5 @@
-/* eslint-disable node/no-unpublished-require */
-/* eslint-disable @typescript-eslint/no-var-requires */
-const {copy, resolve} = require('test-fixture')();
+import {createTestFixture} from './testHelpers';
+const {copy, resolve} = createTestFixture();
 
 import {JSONReport} from '../lib/JSONReport';
 import {JSONRawReport} from '../lib/Types';
