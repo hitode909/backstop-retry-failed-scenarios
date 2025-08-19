@@ -1,5 +1,5 @@
 import escapeStringRegexp from 'escape-string-regexp';
-import {JSONRawReport} from './Types';
+import { JSONRawReport } from './Types';
 
 /**
  *

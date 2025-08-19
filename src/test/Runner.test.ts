@@ -1,20 +1,19 @@
-/* eslint-disable node/no-unpublished-require */
-/* eslint-disable @typescript-eslint/no-var-requires */
-const {copy, resolve} = require('test-fixture')();
+import { createTestFixture } from './testHelpers';
 
 import fs from 'fs';
-import {Runner} from '../lib/Runner';
+import { Runner } from '../lib/Runner';
 
 describe('Runner', () => {
+  const fixture = createTestFixture();
   test('it receives options', async () => {
-    await copy();
+    await fixture.copy();
     const runner = new Runner({
       retry: 3,
       config: 'backstop.json',
       command: 'backstop test',
       referenceCommand: 'backstop reference',
       outputProfile: 'profile.json',
-      rootDir: resolve('backstop/failed'),
+      rootDir: fixture.resolve('backstop/failed'),
     });
     expect(runner).toBeDefined();
     expect(runner.retryCount).toEqual(3);
@@ -25,7 +24,7 @@ describe('Runner', () => {
   });
 
   test('minimum retry count is 2', async () => {
-    await copy();
+    await fixture.copy();
     const runner = new Runner({
       retry: 1,
     });
@@ -34,10 +33,10 @@ describe('Runner', () => {
   });
 
   test('it parses config', async () => {
-    await copy();
+    await fixture.copy();
     const runner = new Runner({
       config: 'backstop.json',
-      rootDir: resolve('backstop/failed'),
+      rootDir: fixture.resolve('backstop/failed'),
     });
     expect(runner.config).toBeDefined();
     expect(runner.config.htmlReport).toBeDefined();
@@ -45,41 +44,41 @@ describe('Runner', () => {
 
   describe('run', () => {
     test('it runs once when pass on first time', async () => {
-      await copy();
+      await fixture.copy();
       const runner = new Runner({
         retry: 3,
         config: 'backstop.json',
-        command: 'cal -y',
-        referenceCommand: 'cal',
-        rootDir: resolve('backstop/failed'),
+        command: 'echo "test"',
+        referenceCommand: 'echo "ref"',
+        rootDir: fixture.resolve('backstop/failed'),
       });
       expect(await runner.run()).toEqual(true);
       expect(runner.retriedCount).toEqual(1);
     });
 
     test('it retries specified times', async () => {
-      await copy();
+      await fixture.copy();
       const runner = new Runner({
         retry: 3,
         config: 'backstop.json',
         referenceCommand: 'not_existing_command',
         command: 'not_existing_command',
-        rootDir: resolve('backstop/failed'),
+        rootDir: fixture.resolve('backstop/failed'),
       });
       expect(await runner.run()).toEqual(false);
       expect(runner.retriedCount).toEqual(3);
     });
 
     test('it generates output profile', async () => {
-      await copy();
-      const outputProfile = resolve('profile.json');
+      await fixture.copy();
+      const outputProfile = fixture.resolve('profile.json');
       const runner = new Runner({
         retry: 2,
         config: 'backstop.json',
         referenceCommand: 'not_existing_command',
         command: 'not_existing_command',
         outputProfile,
-        rootDir: resolve('backstop/failed'),
+        rootDir: fixture.resolve('backstop/failed'),
       });
       await runner.run();
       expect(JSON.parse(fs.readFileSync(outputProfile).toString())).toEqual([
@@ -119,10 +118,10 @@ describe('Runner', () => {
 
   describe('createFilter', () => {
     test('it creates filter from report', async () => {
-      await copy();
+      await fixture.copy();
       const runner = new Runner({
         config: 'backstop.json',
-        rootDir: resolve('backstop/failed'),
+        rootDir: fixture.resolve('backstop/failed'),
       });
       expect(runner.filter).toEqual('^(BackstopJS Homepage)$');
     });

@@ -1,5 +1,5 @@
 import fs from 'fs';
-import {JSONRawReport} from './Types';
+import { JSONRawReport } from './Types';
 
 /**
  * Extract argument object from JSON file.

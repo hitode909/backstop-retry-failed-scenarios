@@ -1,19 +1,19 @@
 import child_process from 'child_process';
 import fs from 'fs';
 
-import {Config} from './Config';
-import {TraceProfiler} from './TraceProfiler';
+import { Config } from './Config';
+import { TraceProfiler } from './TraceProfiler';
 
 // 0 means not run, 1 means just run once, 2 is meaningful minimum count.
 const MINIMUM_RETRY_COUNT = 2;
 
-export const Runner = class Runner {
+export class Runner {
   rootDir: string;
   retryCount: number;
   configPath: string;
   command: string;
-  referenceCommand?: string;
-  outputProfile?: string;
+  referenceCommand: string | undefined;
+  outputProfile: string | undefined;
   traceProfiler: TraceProfiler;
   retriedCount: number;
   exitCode: number;
@@ -109,7 +109,7 @@ export const Runner = class Runner {
     return new Promise(resolve => {
       let child;
       try {
-        child = child_process.spawn(command, {shell: true});
+        child = child_process.spawn(command, { shell: true });
       } catch (error) {
         console.warn(`${error}`.replace(/^/gm, '#  '));
         resolve(false);
@@ -122,7 +122,7 @@ export const Runner = class Runner {
         process.stderr.write(data.toString().replace(/^/gm, '#  '));
       });
       child.on('close', code => {
-        this.exitCode = code;
+        this.exitCode = code ?? 1;
         resolve(code === 0);
       });
     });
@@ -140,4 +140,4 @@ export const Runner = class Runner {
       JSON.stringify(traceProfile, null, '  ')
     );
   }
-};
+}

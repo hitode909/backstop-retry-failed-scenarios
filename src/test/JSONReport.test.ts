@@ -1,9 +1,6 @@
-/* eslint-disable node/no-unpublished-require */
-/* eslint-disable @typescript-eslint/no-var-requires */
-const {copy, resolve} = require('test-fixture')();
-
-import {JSONReport} from '../lib/JSONReport';
-import {JSONRawReport} from '../lib/Types';
+import { JSONReport } from '../lib/JSONReport';
+import { JSONRawReport } from '../lib/Types';
+import { createTestFixture } from './testHelpers';
 
 const mapForTest = (report: JSONRawReport) => {
   return report.tests.map(t => {
@@ -28,10 +25,11 @@ const allPass = [
 ];
 
 describe('JSONReport', () => {
+  const fixture = createTestFixture();
   test('it represents jsonReport.json', async () => {
-    await copy();
+    await fixture.copy();
     const report = new JSONReport(
-      resolve(
+      fixture.resolve(
         'backstop',
         'failed',
         'backstop_data',
@@ -44,9 +42,9 @@ describe('JSONReport', () => {
   });
 
   test('it merges test result', async () => {
-    await copy();
+    await fixture.copy();
     const r1 = new JSONReport(
-      resolve(
+      fixture.resolve(
         'backstop',
         'tablet_success_sp_failed',
         'backstop_data',
@@ -55,7 +53,7 @@ describe('JSONReport', () => {
       )
     );
     const r2 = new JSONReport(
-      resolve(
+      fixture.resolve(
         'backstop',
         'pass',
         'backstop_data',
@@ -78,15 +76,15 @@ describe('JSONReport', () => {
   });
 
   test('2fail to 2pass', async () => {
-    await copy();
+    await fixture.copy();
     const r1 = new JSONReport(
-      resolve(
+      fixture.resolve(
         'backstop/failed-multi-elements/all-failed/backstop_data/json_report',
         'jsonReport.json'
       )
     );
     const r2 = new JSONReport(
-      resolve(
+      fixture.resolve(
         'backstop/failed-multi-elements/all-success/backstop_data/json_report',
         'jsonReport.json'
       )
@@ -98,15 +96,15 @@ describe('JSONReport', () => {
   });
 
   test('1pass1fail to 2pass', async () => {
-    await copy();
+    await fixture.copy();
     const r1 = new JSONReport(
-      resolve(
+      fixture.resolve(
         'backstop/failed-multi-elements/1fail1pass/backstop_data/json_report',
         'jsonReport.json'
       )
     );
     const r2 = new JSONReport(
-      resolve(
+      fixture.resolve(
         'backstop/failed-multi-elements/all-success/backstop_data/json_report',
         'jsonReport.json'
       )

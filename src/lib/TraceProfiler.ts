@@ -1,4 +1,4 @@
-import {performance} from 'perf_hooks';
+import { performance } from 'perf_hooks';
 
 type Span =
   | {
@@ -25,7 +25,7 @@ export class TraceProfiler {
   start(label: string): void {
     if (this.traces.has(label))
       throw new Error(`'${label}' has already started tracing.`);
-    this.traces.set(label, {startTime: performance.now()});
+    this.traces.set(label, { startTime: performance.now() });
   }
   end(label: string): void {
     const span = this.traces.get(label);
@@ -33,7 +33,7 @@ export class TraceProfiler {
       throw new Error(`'${label}' has not yet started tracing.`);
     if ('endTime' in span)
       throw new Error(`'${label}' has already ended tracing.`);
-    this.traces.set(label, {...span, endTime: performance.now()});
+    this.traces.set(label, { ...span, endTime: performance.now() });
   }
   generateReport(): Report {
     const report: Report = [];

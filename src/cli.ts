@@ -3,7 +3,7 @@
 
 import commandLineArgs from 'command-line-args';
 import commandLineUsage from 'command-line-usage';
-import {Runner} from './lib/Runner';
+import { Runner } from './lib/Runner';
 
 const optionDefinitions = [
   {
@@ -47,7 +47,7 @@ const optionDefinitions = [
 ];
 const options = commandLineArgs(optionDefinitions);
 
-if (options.help) {
+if (options['help']) {
   const usage = commandLineUsage([
     {
       header: 'backstop-retry-failed-scenarios',
@@ -65,9 +65,9 @@ if (options.help) {
 const main = async () => {
   const runner = new Runner({
     rootDir: process.cwd(),
-    retry: options.retry,
-    config: options.config,
-    command: options.command,
+    retry: options['retry'],
+    config: options['config'],
+    command: options['command'],
     referenceCommand: options['reference-command'],
     outputProfile: options['output-profile'],
   });

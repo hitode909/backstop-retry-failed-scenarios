@@ -1,30 +1,30 @@
-/* eslint-disable node/no-unpublished-require */
-/* eslint-disable @typescript-eslint/no-var-requires */
-const {copy, resolve} = require('test-fixture')();
-import {HTMLReport} from '../lib/HTMLReport';
+import { HTMLReport } from '../lib/HTMLReport';
+import { createTestFixture } from './testHelpers';
 
 describe('HTMLReport', () => {
+  const fixture = createTestFixture();
+
   test('it represents config.js', async () => {
-    await copy();
+    await fixture.copy();
     const report = new HTMLReport(
-      resolve('backstop', 'failed', 'backstop_data', 'html_report', 'config.js')
+      fixture.resolve('backstop', 'failed', 'backstop_data', 'html_report', 'config.js')
     );
     expect(report).toBeDefined();
     expect(report.rawReport).toBeDefined();
   });
 
   test('it creates filter for retry', async () => {
-    await copy();
+    await fixture.copy();
     const report = new HTMLReport(
-      resolve('backstop', 'failed', 'backstop_data', 'html_report', 'config.js')
+      fixture.resolve('backstop', 'failed', 'backstop_data', 'html_report', 'config.js')
     );
     expect(report.filter).toEqual('^(BackstopJS Homepage)$');
   });
 
   test('it merges test result', async () => {
-    await copy();
+    await fixture.copy();
     const r1 = new HTMLReport(
-      resolve(
+      fixture.resolve(
         'backstop',
         'tablet_success_sp_failed',
         'backstop_data',
@@ -33,7 +33,7 @@ describe('HTMLReport', () => {
       )
     );
     const r2 = new HTMLReport(
-      resolve('backstop', 'pass', 'backstop_data', 'html_report', 'config.js')
+      fixture.resolve('backstop', 'pass', 'backstop_data', 'html_report', 'config.js')
     );
 
     expect(r1.failedCount).toEqual(1);
