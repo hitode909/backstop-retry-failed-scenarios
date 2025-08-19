@@ -5,6 +5,8 @@
       "Bash(npm test:*)",
       "Bash(npm run fix:*)",
       "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
       "Bash(npm outdated)",
       "Bash(npm audit:*)",
       "Bash(npm uninstall:*)",
