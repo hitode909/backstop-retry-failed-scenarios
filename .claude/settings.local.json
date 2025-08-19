@@ -10,7 +10,13 @@
       "Bash(npm uninstall:*)",
       "Bash(rm:*)",
       "Bash(npm install:*)",
-      "Bash(npm run compile:*)"
+      "Bash(npm run compile:*)",
+      "Bash(touch:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run format:check:*)",
+      "Bash(npm run format:*)",
+      "Bash(npm run ci:*)"
     ],
     "deny": [],
     "ask": []

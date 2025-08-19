@@ -1,8 +1,8 @@
-import {extractConfigJson, writeConfigJson} from './htmlReportJsParser';
-import {mergeResults} from './mergeResults';
-import {JSONRawReport} from './Types';
+import { extractConfigJson, writeConfigJson } from './htmlReportJsParser';
+import { mergeResults } from './mergeResults';
+import { JSONRawReport } from './Types';
 
-export const JSONReport = class JSONReport {
+export class JSONReport {
   reportPath: string;
   rawReport: JSONRawReport;
   constructor(reportPath: string) {
@@ -30,4 +30,4 @@ export const JSONReport = class JSONReport {
   writeTo(reportPath: string) {
     writeConfigJson(reportPath, this.rawReport, undefined, undefined);
   }
-};
+}

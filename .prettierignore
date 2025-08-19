@@ -1,2 +1,6 @@
-test/fixtures
-dest/
+dist/
+node_modules/
+coverage/
+test/fixtures/
+*.log
+package-lock.json

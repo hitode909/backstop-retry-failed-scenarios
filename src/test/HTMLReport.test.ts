@@ -1,7 +1,7 @@
 /* eslint-disable node/no-unpublished-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const {copy, resolve} = require('test-fixture')();
-import {HTMLReport} from '../lib/HTMLReport';
+const { copy, resolve } = require('test-fixture')();
+import { HTMLReport } from '../lib/HTMLReport';
 
 describe('HTMLReport', () => {
   test('it represents config.js', async () => {

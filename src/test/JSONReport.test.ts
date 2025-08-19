@@ -1,9 +1,9 @@
 /* eslint-disable node/no-unpublished-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const {copy, resolve} = require('test-fixture')();
+const { copy, resolve } = require('test-fixture')();
 
-import {JSONReport} from '../lib/JSONReport';
-import {JSONRawReport} from '../lib/Types';
+import { JSONReport } from '../lib/JSONReport';
+import { JSONRawReport } from '../lib/Types';
 
 const mapForTest = (report: JSONRawReport) => {
   return report.tests.map(t => {

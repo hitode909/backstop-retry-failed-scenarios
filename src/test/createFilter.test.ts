@@ -1,7 +1,7 @@
-import {createFilter} from '../lib/createFilter';
+import { createFilter } from '../lib/createFilter';
 
 test('it returns null for empty input', () => {
-  expect(createFilter({tests: []})).toStrictEqual(null);
+  expect(createFilter({ tests: [] })).toStrictEqual(null);
 });
 
 test('returns empty string when all tests succeed', () => {

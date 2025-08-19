@@ -1,9 +1,9 @@
 /* eslint-disable node/no-unpublished-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const {copy, resolve} = require('test-fixture')();
+const { copy, resolve } = require('test-fixture')();
 
 import path from 'path';
-import {Config} from '../lib/Config';
+import { Config } from '../lib/Config';
 
 describe('Config', () => {
   test('it represents backstop.json config', async () => {

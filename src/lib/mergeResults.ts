@@ -1,4 +1,4 @@
-import {JSONRawReport} from './Types';
+import { JSONRawReport } from './Types';
 
 export const mergeResults = (
   first: JSONRawReport,

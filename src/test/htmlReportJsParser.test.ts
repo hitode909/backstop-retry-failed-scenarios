@@ -1,9 +1,9 @@
 /* eslint-disable node/no-unpublished-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const {copy, resolve} = require('test-fixture')();
+const { copy, resolve } = require('test-fixture')();
 
 import fs from 'fs';
-import {extractConfigJs, writeConfigJs} from '../lib/htmlReportJsParser';
+import { extractConfigJs, writeConfigJs } from '../lib/htmlReportJsParser';
 
 describe('extractConfigJs', () => {
   test('it throws error when the target file is missing or broken', async () => {
@@ -36,7 +36,7 @@ describe('writeConfigJs', () => {
   test('it writes config.js to specified path', async () => {
     await copy();
     const tmpPath = resolve('tmp.json');
-    writeConfigJs(tmpPath, {tests: []});
+    writeConfigJs(tmpPath, { tests: [] });
     expect(fs.readFileSync(tmpPath).toString()).toEqual(
       'report({\n  "tests": []\n});'
     );

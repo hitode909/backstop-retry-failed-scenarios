@@ -1,5 +1,5 @@
-import {TraceProfiler} from '../lib/TraceProfiler';
-import {performance} from 'perf_hooks';
+import { TraceProfiler } from '../lib/TraceProfiler';
+import { performance } from 'perf_hooks';
 
 function mockPerformanceNow(timestamp: number, fn: () => void): void {
   const nativePerformanceNow = performance.now;
@@ -76,8 +76,8 @@ describe('TraceProfiler', () => {
       mockPerformanceNow(2000, () => profiler.start('2'));
       mockPerformanceNow(3000, () => profiler.end('2'));
       expect(profiler.generateReport()).toEqual([
-        {label: '1', duration: 1000, startTime: 0, endTime: 1000},
-        {label: '2', duration: 1000, startTime: 2000, endTime: 3000},
+        { label: '1', duration: 1000, startTime: 0, endTime: 1000 },
+        { label: '2', duration: 1000, startTime: 2000, endTime: 3000 },
       ]);
     });
     test('generates a report that excludes traces that have not ended', () => {
@@ -86,7 +86,7 @@ describe('TraceProfiler', () => {
       mockPerformanceNow(1000, () => profiler.end('1'));
       mockPerformanceNow(2000, () => profiler.start('2'));
       expect(profiler.generateReport()).toEqual([
-        {label: '1', duration: 1000, startTime: 0, endTime: 1000},
+        { label: '1', duration: 1000, startTime: 0, endTime: 1000 },
       ]);
     });
   });

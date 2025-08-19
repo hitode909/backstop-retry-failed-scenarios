@@ -1,7 +1,7 @@
 /* eslint-disable node/no-unpublished-require */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const {copy, resolve} = require('test-fixture')();
-import {CIReport} from '../lib/CIReport';
+const { copy, resolve } = require('test-fixture')();
+import { CIReport } from '../lib/CIReport';
 
 describe('CIReport', () => {
   test('it represents xunit.xml', async () => {

@@ -1,7 +1,9 @@
-import {mergeResults} from '../lib/mergeResults';
+import { mergeResults } from '../lib/mergeResults';
 
 test('it returns object', () => {
-  expect(mergeResults({tests: []}, {tests: []})).toStrictEqual({tests: []});
+  expect(mergeResults({ tests: [] }, { tests: [] })).toStrictEqual({
+    tests: [],
+  });
 });
 
 test('it replaces old failed test with new passed test. Replaced test comes to the head.', () => {

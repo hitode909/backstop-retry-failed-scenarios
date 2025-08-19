@@ -1,9 +1,9 @@
-import {extractConfigJs, writeConfigJs} from './htmlReportJsParser';
-import {createFilter} from './createFilter';
-import {mergeResults} from './mergeResults';
-import {JSONRawReport} from './Types';
+import { extractConfigJs, writeConfigJs } from './htmlReportJsParser';
+import { createFilter } from './createFilter';
+import { mergeResults } from './mergeResults';
+import { JSONRawReport } from './Types';
 
-export const HTMLReport = class HTMLReport {
+export class HTMLReport {
   reportPath: string;
   rawReport: JSONRawReport;
   constructor(reportPath: string) {
@@ -34,4 +34,4 @@ export const HTMLReport = class HTMLReport {
   writeTo(reportPath: string) {
     writeConfigJs(reportPath, this.rawReport);
   }
-};
+}
