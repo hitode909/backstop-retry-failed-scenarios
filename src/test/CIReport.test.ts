@@ -1,22 +1,21 @@
-/* eslint-disable node/no-unpublished-require */
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { copy, resolve } = require('test-fixture')();
 import { CIReport } from '../lib/CIReport';
+import { createTestFixture } from './testHelpers';
 
 describe('CIReport', () => {
+  const fixture = createTestFixture();
   test('it represents xunit.xml', async () => {
-    await copy();
+    await fixture.copy();
     const report = new CIReport(
-      resolve('backstop', 'failed', 'backstop_data', 'ci_report', 'xunit.xml')
+      fixture.resolve('backstop', 'failed', 'backstop_data', 'ci_report', 'xunit.xml')
     );
     expect(report).toBeDefined();
     expect(report.rawReport).toBeDefined();
   });
 
   test('it merges test result', async () => {
-    await copy();
+    await fixture.copy();
     const r1 = new CIReport(
-      resolve(
+      fixture.resolve(
         'backstop',
         'tablet_success_sp_failed',
         'backstop_data',
@@ -25,7 +24,7 @@ describe('CIReport', () => {
       )
     );
     const r2 = new CIReport(
-      resolve('backstop', 'pass', 'backstop_data', 'ci_report', 'xunit.xml')
+      fixture.resolve('backstop', 'pass', 'backstop_data', 'ci_report', 'xunit.xml')
     );
 
     expect(r1.failedCount).toEqual(1);
@@ -42,9 +41,9 @@ describe('CIReport', () => {
   });
 
   test('it can parse single result', async () => {
-    await copy();
+    await fixture.copy();
     const r1 = new CIReport(
-      resolve(
+      fixture.resolve(
         'backstop',
         'failed_single',
         'backstop_data',
@@ -57,15 +56,15 @@ describe('CIReport', () => {
   });
 
   test('1pass1fail to 2pass', async () => {
-    await copy();
+    await fixture.copy();
     const r1 = new CIReport(
-      resolve(
+      fixture.resolve(
         'backstop/failed-multi-elements/1fail1pass/backstop_data/ci_report',
         'xunit.xml'
       )
     );
     const r2 = new CIReport(
-      resolve(
+      fixture.resolve(
         'backstop/failed-multi-elements/all-success/backstop_data/ci_report',
         'xunit.xml'
       )

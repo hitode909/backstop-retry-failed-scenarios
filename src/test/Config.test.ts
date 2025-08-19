@@ -1,14 +1,12 @@
-/* eslint-disable node/no-unpublished-require */
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { copy, resolve } = require('test-fixture')();
-
 import path from 'path';
 import { Config } from '../lib/Config';
+import { createTestFixture } from './testHelpers';
 
 describe('Config', () => {
+  const fixture = createTestFixture();
   test('it represents backstop.json config', async () => {
-    await copy();
-    const dir = resolve('backstop', 'failed');
+    await fixture.copy();
+    const dir = fixture.resolve('backstop', 'failed');
     const config = new Config(dir, 'backstop.json');
     expect(config).toBeDefined();
     expect(config.rawConfig).toBeDefined();
@@ -27,8 +25,8 @@ describe('Config', () => {
   });
 
   test('it reads paths', async () => {
-    await copy();
-    const dir = resolve('backstop', 'custom_report_path');
+    await fixture.copy();
+    const dir = fixture.resolve('backstop', 'custom_report_path');
     const config = new Config(dir, 'backstop.json');
     expect(config.htmlReportPath).toEqual(
       path.join(dir, 'custom_backstop_data', 'html_report', 'config.js')
@@ -42,8 +40,8 @@ describe('Config', () => {
   });
 
   test('jsonReport and ciReport are optional', async () => {
-    await copy();
-    const dir = resolve('backstop', 'failed_html_only');
+    await fixture.copy();
+    const dir = fixture.resolve('backstop', 'failed_html_only');
     const config = new Config(dir, 'backstop.json');
     expect(config.htmlReport).toBeDefined();
     expect(config.jsonReport).toEqual(null);

@@ -16,7 +16,9 @@
       "Bash(npm run lint)",
       "Bash(npm run format:check:*)",
       "Bash(npm run format:*)",
-      "Bash(npm run ci:*)"
+      "Bash(npm run ci:*)",
+      "Bash(npm view:*)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []
