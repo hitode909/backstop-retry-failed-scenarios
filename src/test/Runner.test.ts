@@ -49,8 +49,8 @@ describe('Runner', () => {
       const runner = new Runner({
         retry: 3,
         config: 'backstop.json',
-        command: 'cal -y',
-        referenceCommand: 'cal',
+        command: 'echo "test"',
+        referenceCommand: 'echo "ref"',
         rootDir: resolve('backstop/failed'),
       });
       expect(await runner.run()).toEqual(true);
