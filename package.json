@@ -39,7 +39,7 @@
     "command-line-args": "5.2.1",
     "command-line-usage": "6.1.1",
     "escape-string-regexp": "4.0.0",
-    "xml2json": "0.12.0"
+    "fast-xml-parser": "^4.5.0"
   },
   "bin": {
     "backstop-retry-failed-scenarios": "dist/cli.js"
