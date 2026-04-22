@@ -15,6 +15,8 @@ export const createFilter = (report: JSONRawReport): string | null => {
   ];
   if (failedTestLabels.length === 0) return null;
   return `^(${failedTestLabels
-    .map(label => escapeStringRegexp(label))
+    .map(label => escapeStringRegexp(label)
+      .replaceAll('/', '\\/')
+      .replaceAll("'", '.')) // cannot escape single quotes in shell, but since it's a RegExp a dot is fine, worst thing that can happen is that it matches more than it should
     .join('|')})$`;
 };
